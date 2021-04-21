@@ -4002,7 +4002,7 @@
     <type>Trinket</type>
     <action>Grub</action>
     <pool>Grub</pool>
-    <nameKey>RANDOMIZER_NAME_GRUB</nameKey>
+    <nameKey>RANDOMIZER_NAME_GRUB30</nameKey>
     <shopDescKey>RANDOMIZER_DESC_GRUB</shopDescKey>
     <shopSpriteKey>ShopIcons.Grub</shopSpriteKey>
     <areaName>Forgotten_Crossroads</areaName>
@@ -4018,7 +4018,7 @@
     <type>Trinket</type>
     <action>Grub</action>
     <pool>Grub</pool>
-    <nameKey>RANDOMIZER_NAME_GRUB</nameKey>
+    <nameKey>RANDOMIZER_NAME_GRUB29</nameKey>
     <shopDescKey>RANDOMIZER_DESC_GRUB</shopDescKey>
     <shopSpriteKey>ShopIcons.Grub</shopSpriteKey>
     <areaName>Forgotten_Crossroads</areaName>
@@ -4034,7 +4034,7 @@
     <type>Trinket</type>
     <action>Grub</action>
     <pool>Grub</pool>
-    <nameKey>RANDOMIZER_NAME_GRUB</nameKey>
+    <nameKey>RANDOMIZER_NAME_GRUB6</nameKey>
     <shopDescKey>RANDOMIZER_DESC_GRUB</shopDescKey>
     <shopSpriteKey>ShopIcons.Grub</shopSpriteKey>
     <areaName>Forgotten_Crossroads</areaName>
@@ -4050,7 +4050,7 @@
     <type>Trinket</type>
     <action>Grub</action>
     <pool>Grub</pool>
-    <nameKey>RANDOMIZER_NAME_GRUB</nameKey>
+    <nameKey>RANDOMIZER_NAME_GRUB7</nameKey>
     <shopDescKey>RANDOMIZER_DESC_GRUB</shopDescKey>
     <shopSpriteKey>ShopIcons.Grub</shopSpriteKey>
     <areaName>Forgotten_Crossroads</areaName>
@@ -4066,7 +4066,7 @@
     <type>Trinket</type>
     <pool>Grub</pool>
     <action>Grub</action>
-    <nameKey>RANDOMIZER_NAME_GRUB</nameKey>
+    <nameKey>RANDOMIZER_NAME_GRUB12</nameKey>
     <shopDescKey>RANDOMIZER_DESC_GRUB</shopDescKey>
     <shopSpriteKey>ShopIcons.Grub</shopSpriteKey>
     <areaName>Forgotten_Crossroads</areaName>
@@ -4082,7 +4082,7 @@
     <type>Trinket</type>
     <action>Grub</action>
     <pool>Grub</pool>
-    <nameKey>RANDOMIZER_NAME_GRUB</nameKey>
+    <nameKey>RANDOMIZER_NAME_GRUB34</nameKey>
     <shopDescKey>RANDOMIZER_DESC_GRUB</shopDescKey>
     <shopSpriteKey>ShopIcons.Grub</shopSpriteKey>
     <areaName>Greenpath</areaName>
@@ -4098,7 +4098,7 @@
     <type>Trinket</type>
     <action>Grub</action>
     <pool>Grub</pool>
-    <nameKey>RANDOMIZER_NAME_GRUB</nameKey>
+    <nameKey>RANDOMIZER_NAME_GRUB33</nameKey>
     <shopDescKey>RANDOMIZER_DESC_GRUB</shopDescKey>
     <shopSpriteKey>ShopIcons.Grub</shopSpriteKey>
     <areaName>Greenpath</areaName>
@@ -4114,7 +4114,7 @@
     <type>Trinket</type>
     <action>Grub</action>
     <pool>Grub</pool>
-    <nameKey>RANDOMIZER_NAME_GRUB</nameKey>
+    <nameKey>RANDOMIZER_NAME_GRUB35</nameKey>
     <shopDescKey>RANDOMIZER_DESC_GRUB</shopDescKey>
     <shopSpriteKey>ShopIcons.Grub</shopSpriteKey>
     <areaName>Greenpath</areaName>
@@ -4130,7 +4130,7 @@
     <type>Trinket</type>
     <action>Grub</action>
     <pool>Grub</pool>
-    <nameKey>RANDOMIZER_NAME_GRUB</nameKey>
+    <nameKey>RANDOMIZER_NAME_GRUB44</nameKey>
     <shopDescKey>RANDOMIZER_DESC_GRUB</shopDescKey>
     <shopSpriteKey>ShopIcons.Grub</shopSpriteKey>
     <areaName>Greenpath</areaName>
@@ -4146,7 +4146,7 @@
     <type>Trinket</type>
     <action>Grub</action>
     <pool>Grub</pool>
-    <nameKey>RANDOMIZER_NAME_GRUB</nameKey>
+    <nameKey>RANDOMIZER_NAME_GRUB32</nameKey>
     <shopDescKey>RANDOMIZER_DESC_GRUB</shopDescKey>
     <shopSpriteKey>ShopIcons.Grub</shopSpriteKey>
     <areaName>Fog_Canyon</areaName>
@@ -4162,7 +4162,7 @@
     <type>Trinket</type>
     <action>Grub</action>
     <pool>Grub</pool>
-    <nameKey>RANDOMIZER_NAME_GRUB</nameKey>
+    <nameKey>RANDOMIZER_NAME_GRUB1</nameKey>
     <shopDescKey>RANDOMIZER_DESC_GRUB</shopDescKey>
     <shopSpriteKey>ShopIcons.Grub</shopSpriteKey>
     <areaName>Fungal_Wastes</areaName>
@@ -4178,7 +4178,7 @@
     <type>Trinket</type>
     <action>Grub</action>
     <pool>Grub</pool>
-    <nameKey>RANDOMIZER_NAME_GRUB</nameKey>
+    <nameKey>RANDOMIZER_NAME_GRUB2</nameKey>
     <shopDescKey>RANDOMIZER_DESC_GRUB</shopDescKey>
     <shopSpriteKey>ShopIcons.Grub</shopSpriteKey>
     <areaName>Fungal_Wastes</areaName>
@@ -4194,7 +4194,7 @@
     <type>Trinket</type>
     <action>Grub</action>
     <pool>Grub</pool>
-    <nameKey>RANDOMIZER_NAME_GRUB</nameKey>
+    <nameKey>RANDOMIZER_NAME_GRUB3</nameKey>
     <shopDescKey>RANDOMIZER_DESC_GRUB</shopDescKey>
     <shopSpriteKey>ShopIcons.Grub</shopSpriteKey>
     <areaName>Deepnest</areaName>
@@ -4210,7 +4210,7 @@
     <type>Trinket</type>
     <action>Grub</action>
     <pool>Grub</pool>
-    <nameKey>RANDOMIZER_NAME_GRUB</nameKey>
+    <nameKey>RANDOMIZER_NAME_GRUB4</nameKey>
     <shopDescKey>RANDOMIZER_DESC_GRUB</shopDescKey>
     <shopSpriteKey>ShopIcons.Grub</shopSpriteKey>
     <areaName>Deepnest</areaName>
@@ -4226,7 +4226,7 @@
     <type>Trinket</type>
     <action>Grub</action>
     <pool>Grub</pool>
-    <nameKey>RANDOMIZER_NAME_GRUB</nameKey>
+    <nameKey>RANDOMIZER_NAME_GRUB5</nameKey>
     <shopDescKey>RANDOMIZER_DESC_GRUB</shopDescKey>
     <shopSpriteKey>ShopIcons.Grub</shopSpriteKey>
     <areaName>Deepnest</areaName>
@@ -4242,7 +4242,7 @@
     <type>Trinket</type>
     <action>Grub</action>
     <pool>Grub</pool>
-    <nameKey>RANDOMIZER_NAME_GRUB</nameKey>
+    <nameKey>RANDOMIZER_NAME_GRUB39</nameKey>
     <shopDescKey>RANDOMIZER_DESC_GRUB</shopDescKey>
     <shopSpriteKey>ShopIcons.Grub</shopSpriteKey>
     <areaName>Deepnest</areaName>
@@ -4258,7 +4258,7 @@
     <type>Trinket</type>
     <action>Grub</action>
     <pool>Grub</pool>
-    <nameKey>RANDOMIZER_NAME_GRUB</nameKey>
+    <nameKey>RANDOMIZER_NAME_GRUB40</nameKey>
     <shopDescKey>RANDOMIZER_DESC_GRUB</shopDescKey>
     <shopSpriteKey>ShopIcons.Grub</shopSpriteKey>
     <areaName>Beasts_Den</areaName>
@@ -4274,7 +4274,7 @@
     <type>Trinket</type>
     <action>Grub</action>
     <pool>Grub</pool>
-    <nameKey>RANDOMIZER_NAME_GRUB</nameKey>
+    <nameKey>RANDOMIZER_NAME_GRUB27</nameKey>
     <shopDescKey>RANDOMIZER_DESC_GRUB</shopDescKey>
     <shopSpriteKey>ShopIcons.Grub</shopSpriteKey>
     <areaName>Kingdoms_Edge</areaName>
@@ -4290,7 +4290,7 @@
     <type>Trinket</type>
     <action>Grub</action>
     <pool>Grub</pool>
-    <nameKey>RANDOMIZER_NAME_GRUB</nameKey>
+    <nameKey>RANDOMIZER_NAME_GRUB28</nameKey>
     <shopDescKey>RANDOMIZER_DESC_GRUB</shopDescKey>
     <shopSpriteKey>ShopIcons.Grub</shopSpriteKey>
     <areaName>Kingdoms_Edge</areaName>
@@ -4306,7 +4306,7 @@
     <type>Trinket</type>
     <action>Grub</action>
     <pool>Grub</pool>
-    <nameKey>RANDOMIZER_NAME_GRUB</nameKey>
+    <nameKey>RANDOMIZER_NAME_GRUB26</nameKey>
     <shopDescKey>RANDOMIZER_DESC_GRUB</shopDescKey>
     <shopSpriteKey>ShopIcons.Grub</shopSpriteKey>
     <areaName>Hive</areaName>
@@ -4322,7 +4322,7 @@
     <type>Trinket</type>
     <action>Grub</action>
     <pool>Grub</pool>
-    <nameKey>RANDOMIZER_NAME_GRUB</nameKey>
+    <nameKey>RANDOMIZER_NAME_GRUB25</nameKey>
     <shopDescKey>RANDOMIZER_DESC_GRUB</shopDescKey>
     <shopSpriteKey>ShopIcons.Grub</shopSpriteKey>
     <areaName>Hive</areaName>
@@ -4338,7 +4338,7 @@
     <type>Trinket</type>
     <action>Grub</action>
     <pool>Grub</pool>
-    <nameKey>RANDOMIZER_NAME_GRUB</nameKey>
+    <nameKey>RANDOMIZER_NAME_GRUB21</nameKey>
     <shopDescKey>RANDOMIZER_DESC_GRUB</shopDescKey>
     <shopSpriteKey>ShopIcons.Grub</shopSpriteKey>
     <areaName>Ancient_Basin</areaName>
@@ -4354,7 +4354,7 @@
     <type>Trinket</type>
     <action>Grub</action>
     <pool>Grub</pool>
-    <nameKey>RANDOMIZER_NAME_GRUB</nameKey>
+    <nameKey>RANDOMIZER_NAME_GRUB20</nameKey>
     <shopDescKey>RANDOMIZER_DESC_GRUB</shopDescKey>
     <shopSpriteKey>ShopIcons.Grub</shopSpriteKey>
     <areaName>Ancient_Basin</areaName>
@@ -4370,7 +4370,7 @@
     <type>Trinket</type>
     <action>Grub</action>
     <pool>Grub</pool>
-    <nameKey>RANDOMIZER_NAME_GRUB</nameKey>
+    <nameKey>RANDOMIZER_NAME_GRUB24</nameKey>
     <shopDescKey>RANDOMIZER_DESC_GRUB</shopDescKey>
     <shopSpriteKey>ShopIcons.Grub</shopSpriteKey>
     <areaName>Royal_Waterways</areaName>
@@ -4386,7 +4386,7 @@
     <type>Trinket</type>
     <action>Grub</action>
     <pool>Grub</pool>
-    <nameKey>RANDOMIZER_NAME_GRUB</nameKey>
+    <nameKey>RANDOMIZER_NAME_GRUB23</nameKey>
     <shopDescKey>RANDOMIZER_DESC_GRUB</shopDescKey>
     <shopSpriteKey>ShopIcons.Grub</shopSpriteKey>
     <areaName>Ismas_Grove</areaName>
@@ -4402,7 +4402,7 @@
     <type>Trinket</type>
     <action>Grub</action>
     <pool>Grub</pool>
-    <nameKey>RANDOMIZER_NAME_GRUB</nameKey>
+    <nameKey>RANDOMIZER_NAME_GRUB22</nameKey>
     <shopDescKey>RANDOMIZER_DESC_GRUB</shopDescKey>
     <shopSpriteKey>ShopIcons.Grub</shopSpriteKey>
     <areaName>Royal_Waterways</areaName>
@@ -4418,7 +4418,7 @@
     <type>Trinket</type>
     <action>Grub</action>
     <pool>Grub</pool>
-    <nameKey>RANDOMIZER_NAME_GRUB</nameKey>
+    <nameKey>RANDOMIZER_NAME_GRUB9</nameKey>
     <shopDescKey>RANDOMIZER_DESC_GRUB</shopDescKey>
     <shopSpriteKey>ShopIcons.Grub</shopSpriteKey>
     <areaName>City_of_Tears</areaName>
@@ -4434,7 +4434,7 @@
     <type>Trinket</type>
     <action>Grub</action>
     <pool>Grub</pool>
-    <nameKey>RANDOMIZER_NAME_GRUB</nameKey>
+    <nameKey>RANDOMIZER_NAME_GRUB8</nameKey>
     <shopDescKey>RANDOMIZER_DESC_GRUB</shopDescKey>
     <shopSpriteKey>ShopIcons.Grub</shopSpriteKey>
     <areaName>Soul_Sanctum</areaName>
@@ -4450,7 +4450,7 @@
     <type>Trinket</type>
     <action>Grub</action>
     <pool>Grub</pool>
-    <nameKey>RANDOMIZER_NAME_GRUB</nameKey>
+    <nameKey>RANDOMIZER_NAME_GRUB10</nameKey>
     <shopDescKey>RANDOMIZER_DESC_GRUB</shopDescKey>
     <shopSpriteKey>ShopIcons.Grub</shopSpriteKey>
     <areaName>City_of_Tears</areaName>
@@ -4466,7 +4466,7 @@
     <type>Trinket</type>
     <action>Grub</action>
     <pool>Grub</pool>
-    <nameKey>RANDOMIZER_NAME_GRUB</nameKey>
+    <nameKey>RANDOMIZER_NAME_GRUB11</nameKey>
     <shopDescKey>RANDOMIZER_DESC_GRUB</shopDescKey>
     <shopSpriteKey>ShopIcons.Grub</shopSpriteKey>
     <areaName>City_of_Tears</areaName>
@@ -4482,7 +4482,7 @@
     <type>Trinket</type>
     <action>Grub</action>
     <pool>Grub</pool>
-    <nameKey>RANDOMIZER_NAME_GRUB</nameKey>
+    <nameKey>RANDOMIZER_NAME_GRUB31</nameKey>
     <shopDescKey>RANDOMIZER_DESC_GRUB</shopDescKey>
     <shopSpriteKey>ShopIcons.Grub</shopSpriteKey>
     <areaName>Kings_Station</areaName>
@@ -4498,7 +4498,7 @@
     <type>Trinket</type>
     <action>Grub</action>
     <pool>Grub</pool>
-    <nameKey>RANDOMIZER_NAME_GRUB</nameKey>
+    <nameKey>RANDOMIZER_NAME_GRUB19</nameKey>
     <shopDescKey>RANDOMIZER_DESC_GRUB</shopDescKey>
     <shopSpriteKey>ShopIcons.Grub</shopSpriteKey>
     <areaName>Resting_Grounds</areaName>
@@ -4514,7 +4514,7 @@
     <type>Trinket</type>
     <action>Grub</action>
     <pool>Grub</pool>
-    <nameKey>RANDOMIZER_NAME_GRUB</nameKey>
+    <nameKey>RANDOMIZER_NAME_GRUB17</nameKey>
     <shopDescKey>RANDOMIZER_DESC_GRUB</shopDescKey>
     <shopSpriteKey>ShopIcons.Grub</shopSpriteKey>
     <areaName>Crystal_Peak</areaName>
@@ -4530,7 +4530,7 @@
     <type>Trinket</type>
     <action>Grub</action>
     <pool>Grub</pool>
-    <nameKey>RANDOMIZER_NAME_GRUB</nameKey>
+    <nameKey>RANDOMIZER_NAME_GRUB18</nameKey>
     <shopDescKey>RANDOMIZER_DESC_GRUB</shopDescKey>
     <shopSpriteKey>ShopIcons.Grub</shopSpriteKey>
     <areaName>Crystallized_Mound</areaName>
@@ -4546,7 +4546,7 @@
     <type>Trinket</type>
     <action>Grub</action>
     <pool>Grub</pool>
-    <nameKey>RANDOMIZER_NAME_GRUB</nameKey>
+    <nameKey>RANDOMIZER_NAME_GRUB13</nameKey>
     <shopDescKey>RANDOMIZER_DESC_GRUB</shopDescKey>
     <shopSpriteKey>ShopIcons.Grub</shopSpriteKey>
     <areaName>Crystal_Peak</areaName>
@@ -4562,7 +4562,7 @@
     <type>Trinket</type>
     <action>Grub</action>
     <pool>Grub</pool>
-    <nameKey>RANDOMIZER_NAME_GRUB</nameKey>
+    <nameKey>RANDOMIZER_NAME_GRUB46</nameKey>
     <shopDescKey>RANDOMIZER_DESC_GRUB</shopDescKey>
     <shopSpriteKey>ShopIcons.Grub</shopSpriteKey>
     <areaName>Crystal_Peak</areaName>
@@ -4578,7 +4578,7 @@
     <type>Trinket</type>
     <action>Grub</action>
     <pool>Grub</pool>
-    <nameKey>RANDOMIZER_NAME_GRUB</nameKey>
+    <nameKey>RANDOMIZER_NAME_GRUB16</nameKey>
     <shopDescKey>RANDOMIZER_DESC_GRUB</shopDescKey>
     <shopSpriteKey>ShopIcons.Grub</shopSpriteKey>
     <areaName>Crystal_Peak</areaName>
@@ -4594,7 +4594,7 @@
     <type>Trinket</type>
     <action>Grub</action>
     <pool>Grub</pool>
-    <nameKey>RANDOMIZER_NAME_GRUB</nameKey>
+    <nameKey>RANDOMIZER_NAME_GRUB15</nameKey>
     <shopDescKey>RANDOMIZER_DESC_GRUB</shopDescKey>
     <shopSpriteKey>ShopIcons.Grub</shopSpriteKey>
     <areaName>Crystal_Peak</areaName>
@@ -4610,7 +4610,7 @@
     <type>Trinket</type>
     <action>Grub</action>
     <pool>Grub</pool>
-    <nameKey>RANDOMIZER_NAME_GRUB</nameKey>
+    <nameKey>RANDOMIZER_NAME_GRUB14</nameKey>
     <shopDescKey>RANDOMIZER_DESC_GRUB</shopDescKey>
     <shopSpriteKey>ShopIcons.Grub</shopSpriteKey>
     <areaName>Crystal_Peak</areaName>
@@ -4626,7 +4626,7 @@
     <type>Trinket</type>
     <action>Grub</action>
     <pool>Grub</pool>
-    <nameKey>RANDOMIZER_NAME_GRUB</nameKey>
+    <nameKey>RANDOMIZER_NAME_GRUB45</nameKey>
     <shopDescKey>RANDOMIZER_DESC_GRUB</shopDescKey>
     <shopSpriteKey>ShopIcons.Grub</shopSpriteKey>
     <areaName>Howling_Cliffs</areaName>
@@ -4642,7 +4642,7 @@
     <type>Trinket</type>
     <action>Grub</action>
     <pool>Grub</pool>
-    <nameKey>RANDOMIZER_NAME_GRUB</nameKey>
+    <nameKey>RANDOMIZER_NAME_GRUB36</nameKey>
     <shopDescKey>RANDOMIZER_DESC_GRUB</shopDescKey>
     <shopSpriteKey>ShopIcons.Grub</shopSpriteKey>
     <areaName>Queens_Gardens</areaName>
@@ -4658,7 +4658,7 @@
     <type>Trinket</type>
     <action>Grub</action>
     <pool>Grub</pool>
-    <nameKey>RANDOMIZER_NAME_GRUB</nameKey>
+    <nameKey>RANDOMIZER_NAME_GRUB37</nameKey>
     <shopDescKey>RANDOMIZER_DESC_GRUB</shopDescKey>
     <shopSpriteKey>ShopIcons.Grub</shopSpriteKey>
     <areaName>Queens_Gardens</areaName>
@@ -4674,7 +4674,7 @@
     <type>Trinket</type>
     <action>Grub</action>
     <pool>Grub</pool>
-    <nameKey>RANDOMIZER_NAME_GRUB</nameKey>
+    <nameKey>RANDOMIZER_NAME_GRUB38</nameKey>
     <shopDescKey>RANDOMIZER_DESC_GRUB</shopDescKey>
     <shopSpriteKey>ShopIcons.Grub</shopSpriteKey>
     <areaName>Queens_Gardens</areaName>
@@ -4691,7 +4691,7 @@
     <type>Trinket</type>
     <action>Grub</action>
     <pool>Grub</pool>
-    <nameKey>RANDOMIZER_NAME_GRUB</nameKey>
+    <nameKey>RANDOMIZER_NAME_GRUB41</nameKey>
     <shopDescKey>RANDOMIZER_DESC_GRUB</shopDescKey>
     <shopSpriteKey>ShopIcons.Grub</shopSpriteKey>
     <areaName>Tower_of_Love</areaName>
@@ -4708,7 +4708,7 @@
     <type>Trinket</type>
     <action>Grub</action>
     <pool>Grub</pool>
-    <nameKey>RANDOMIZER_NAME_GRUB</nameKey>
+    <nameKey>RANDOMIZER_NAME_GRUB42</nameKey>
     <shopDescKey>RANDOMIZER_DESC_GRUB</shopDescKey>
     <shopSpriteKey>ShopIcons.Grub</shopSpriteKey>
     <areaName>Tower_of_Love</areaName>
@@ -4725,7 +4725,7 @@
     <type>Trinket</type>
     <action>Grub</action>
     <pool>Grub</pool>
-    <nameKey>RANDOMIZER_NAME_GRUB</nameKey>
+    <nameKey>RANDOMIZER_NAME_GRUB43</nameKey>
     <shopDescKey>RANDOMIZER_DESC_GRUB</shopDescKey>
     <shopSpriteKey>ShopIcons.Grub</shopSpriteKey>
     <areaName>Tower_of_Love</areaName>

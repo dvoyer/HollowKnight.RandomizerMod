@@ -112,7 +112,7 @@ namespace RandomizerMod
 
             if (key.StartsWith("RANDOMIZER_NAME_GRUB"))
             {
-                return $"A grub! ({PlayerData.instance.grubsCollected + 1}/46)";
+                return $"{LanguageStrings["UI"][key]}! ({PlayerData.instance.grubsCollected + 1}/46)";
             }
 
             if (key == "BRUMM_DEEPNEST_3" && sheetTitle == "CP2" && RandomizerMod.Instance.Settings.RandomizeGrimmkinFlames)

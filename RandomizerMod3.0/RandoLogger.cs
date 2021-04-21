@@ -354,6 +354,12 @@ namespace RandomizerMod
             }
 
             LogTracker(message);
+            // for rando helper - if the transition is bidirectional, log both directions
+            if (RandomizerMod.Instance.Settings.RandomizeRooms && LogicManager.GetTransitionDef(exit).oneWay == 0)
+            {
+                message = $"TRANSITION --- {{{exit}}}-->{{{entrance}}}";
+                LogTracker(message);
+            }
         }
         public static void LogItemToTracker(string item, string location)
         {

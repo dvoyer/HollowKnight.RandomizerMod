@@ -130,6 +130,53 @@
   <entry sheet="UI" key="RANDOMIZER_DESC_FOCUS">Press and hold the slow cast button to heal.</entry>
   <entry sheet="Prompts" key="RANDOMIZER_DESC_FOCUS">Press and hold the slow cast button to heal.</entry>
   <entry sheet="UI" key="RANDOMIZER_SHOP_DESC_FOCUS">Hahahahahahahahahahahaha. No.</entry>
+  <!-- Official Grub Names -->
+    <entry sheet="UI" key="RANDOMIZER_NAME_GRUB1">Blimpy</entry>
+    <entry sheet="UI" key="RANDOMIZER_NAME_GRUB2">Thornando</entry>
+    <entry sheet="UI" key="RANDOMIZER_NAME_GRUB3">Mimi</entry>
+    <entry sheet="UI" key="RANDOMIZER_NAME_GRUB4">Elon Mosk</entry>
+    <entry sheet="UI" key="RANDOMIZER_NAME_GRUB5">Ben</entry>
+    <entry sheet="UI" key="RANDOMIZER_NAME_GRUB6">Jasper</entry>
+    <entry sheet="UI" key="RANDOMIZER_NAME_GRUB7">Pogo</entry>
+    <entry sheet="UI" key="RANDOMIZER_NAME_GRUB8">Saul</entry>
+    <entry sheet="UI" key="RANDOMIZER_NAME_GRUB9">Betty</entry>
+    <entry sheet="UI" key="RANDOMIZER_NAME_GRUB10">Zelda</entry>
+    <entry sheet="UI" key="RANDOMIZER_NAME_GRUB11">Danger</entry>
+    <entry sheet="UI" key="RANDOMIZER_NAME_GRUB12">Stefan</entry>
+    <entry sheet="UI" key="RANDOMIZER_NAME_GRUB13">Crystal</entry>
+    <entry sheet="UI" key="RANDOMIZER_NAME_GRUB14">Crissy</entry>
+    <entry sheet="UI" key="RANDOMIZER_NAME_GRUB15">Christopher</entry>
+    <entry sheet="UI" key="RANDOMIZER_NAME_GRUB16">Chris</entry>
+    <entry sheet="UI" key="RANDOMIZER_NAME_GRUB17">Crimble</entry>
+    <entry sheet="UI" key="RANDOMIZER_NAME_GRUB18">Crispy Q.</entry>
+    <entry sheet="UI" key="RANDOMIZER_NAME_GRUB19">Cataquack</entry>
+    <entry sheet="UI" key="RANDOMIZER_NAME_GRUB20">Grubetheus</entry>
+    <entry sheet="UI" key="RANDOMIZER_NAME_GRUB21">Wingathy</entry>
+    <entry sheet="UI" key="RANDOMIZER_NAME_GRUB22">Hwurmples</entry>
+    <entry sheet="UI" key="RANDOMIZER_NAME_GRUB23">Ismoil</entry>
+    <entry sheet="UI" key="RANDOMIZER_NAME_GRUB24">Walter Ways</entry>
+    <entry sheet="UI" key="RANDOMIZER_NAME_GRUB25">Honey</entry>
+    <entry sheet="UI" key="RANDOMIZER_NAME_GRUB26">Bimble</entry>
+    <entry sheet="UI" key="RANDOMIZER_NAME_GRUB27">Hoppita</entry>
+    <entry sheet="UI" key="RANDOMIZER_NAME_GRUB28">Pierogi</entry>
+    <entry sheet="UI" key="RANDOMIZER_NAME_GRUB29">AAAA</entry>
+    <entry sheet="UI" key="RANDOMIZER_NAME_GRUB30">Andy</entry>
+    <entry sheet="UI" key="RANDOMIZER_NAME_GRUB31">Ricky</entry>
+    <entry sheet="UI" key="RANDOMIZER_NAME_GRUB32">Jellyfer</entry>
+    <entry sheet="UI" key="RANDOMIZER_NAME_GRUB33">Mossy</entry>
+    <entry sheet="UI" key="RANDOMIZER_NAME_GRUB34">Degrassi</entry>
+    <entry sheet="UI" key="RANDOMIZER_NAME_GRUB35">Pete</entry>
+    <entry sheet="UI" key="RANDOMIZER_NAME_GRUB36">Frodo</entry>
+    <entry sheet="UI" key="RANDOMIZER_NAME_GRUB37">Bilbo</entry>
+    <entry sheet="UI" key="RANDOMIZER_NAME_GRUB38">Smeagol</entry>
+    <entry sheet="UI" key="RANDOMIZER_NAME_GRUB39">Sauron</entry>
+    <entry sheet="UI" key="RANDOMIZER_NAME_GRUB40">Leggy</entry>
+    <entry sheet="UI" key="RANDOMIZER_NAME_GRUB41">Grubbley</entry>
+    <entry sheet="UI" key="RANDOMIZER_NAME_GRUB42">Grubbles</entry>
+    <entry sheet="UI" key="RANDOMIZER_NAME_GRUB43">Grubbathy</entry>
+    <entry sheet="UI" key="RANDOMIZER_NAME_GRUB44">Leaf</entry>
+    <entry sheet="UI" key="RANDOMIZER_NAME_GRUB45">Stella</entry>
+    <entry sheet="UI" key="RANDOMIZER_NAME_GRUB46">Christian</entry>
   <!--
   <entry sheet="UI" key="CHARM_NAME_1">Gathering Swarm</entry>
   <entry sheet="UI" key="CHARM_NAME_2">Wayward Compass</entry>
