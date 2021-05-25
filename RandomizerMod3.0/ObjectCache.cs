@@ -28,6 +28,12 @@ namespace RandomizerMod
 
         private static GameObject _relicGetMsg;
 
+        private static GameObject _grubJar;
+
+        private static GameObject _loreTablet;
+
+        private static Dictionary<GeoRockSubtype, GameObject> _geoRocks;
+
         public static GameObject ShinyItem => Object.Instantiate(_shinyItem);
 
         public static GameObject SmallGeo => Object.Instantiate(_smallGeo);
@@ -48,8 +54,20 @@ namespace RandomizerMod
 
         public static GameObject RelicGetMsg => Object.Instantiate(_relicGetMsg);
 
+        public static GameObject GrubJar => Object.Instantiate(_grubJar);
+
+        public static GeoRockSubtype GetPreloadedRockType(GeoRockSubtype t) {
+            return _geoRocks.ContainsKey(t) ? t : GeoRockSubtype.Default;
+        }
+
+        public static GameObject GeoRock(GeoRockSubtype t) {
+            return Object.Instantiate(_geoRocks[t]);
+        }
+
         public static GameObject Grub;
         public static AudioClip[] GrubCry;
+
+        public static AudioClip LoreSound;
 
         public static void GetPrefabs(Dictionary<string, Dictionary<string, GameObject>> objectsByScene)
         {
@@ -94,13 +112,50 @@ namespace RandomizerMod
             _smallPlatform = objectsByScene[SceneNames.Tutorial_01]["_Scenery/plat_float_17"];
             Object.DontDestroyOnLoad(_smallPlatform);
 
-            Grub = objectsByScene[SceneNames.Ruins_House_01]["Grub Bottle/Grub"];
+            _grubJar = objectsByScene[SceneNames.Abyss_19]["Grub Bottle"];
+            Object.DontDestroyOnLoad(_grubJar);
+
+            if (RandomizerMod.Instance.globalSettings.ReducePreloads)
+            {
+                _geoRocks = new Dictionary<GeoRockSubtype, GameObject>() {
+                    [GeoRockSubtype.Default] = objectsByScene[SceneNames.Tutorial_01]["_Props/Geo Rock 1"],
+                };
+            }
+            else
+            {
+                _geoRocks = new Dictionary<GeoRockSubtype, GameObject>() {
+                    [GeoRockSubtype.Default] = objectsByScene[SceneNames.Tutorial_01]["_Props/Geo Rock 1"],
+                    [GeoRockSubtype.Abyss] = objectsByScene[SceneNames.Abyss_19]["Geo Rock Abyss"],
+                    [GeoRockSubtype.City] = objectsByScene[SceneNames.Ruins2_05]["Geo Rock City 1"],
+                    [GeoRockSubtype.Deepnest] = objectsByScene[SceneNames.Deepnest_02]["Geo Rock Deepnest"],
+                    [GeoRockSubtype.Fung01] = objectsByScene[SceneNames.Fungus2_11]["Geo Rock Fung 01"],
+                    [GeoRockSubtype.Fung02] = objectsByScene[SceneNames.Fungus2_11]["Geo Rock Fung 02"],
+                    [GeoRockSubtype.Grave01] = objectsByScene[SceneNames.RestingGrounds_10]["Geo Rock Grave 01"],
+                    [GeoRockSubtype.Grave02] = objectsByScene[SceneNames.RestingGrounds_10]["Geo Rock Grave 02"],
+                    [GeoRockSubtype.GreenPath01] = objectsByScene[SceneNames.Fungus1_12]["Geo Rock Green Path 01"],
+                    [GeoRockSubtype.GreenPath02] = objectsByScene[SceneNames.Fungus1_12]["Geo Rock Green Path 02"],
+                    [GeoRockSubtype.Hive] = objectsByScene[SceneNames.Hive_01]["Geo Rock Hive"],
+                    [GeoRockSubtype.Mine] = objectsByScene[SceneNames.Mines_20]["Geo Rock Mine (4)"],
+                    [GeoRockSubtype.Outskirts] = objectsByScene[SceneNames.Deepnest_East_17]["Geo Rock Outskirts"],
+                    [GeoRockSubtype.Outskirts420] = objectsByScene[SceneNames.Deepnest_East_17]["Giant Geo Egg"]
+                };
+            }
+            
+            foreach (var entry in _geoRocks) {
+                Object.DontDestroyOnLoad(entry.Value);
+            }
+
+            Grub = objectsByScene[SceneNames.Abyss_19]["Grub Bottle/Grub"];
             GrubCry = Grub.LocateMyFSM("Grub Control").GetState("Leave").GetActionOfType<AudioPlayRandom>().audioClips;
             Object.DontDestroyOnLoad(Grub);
             foreach (AudioClip clip in GrubCry)
             {
                 Object.DontDestroyOnLoad(clip);
             }
+
+            _loreTablet = objectsByScene[SceneNames.Tutorial_01]["_Props/Tut_tablet_top"];
+            LoreSound = (AudioClip)_loreTablet.LocateMyFSM("Inspection").GetState("Prompt Up").GetActionOfType<AudioPlayerOneShotSingle>().audioClip.Value;
+            Object.DontDestroyOnLoad(LoreSound);
 
             _jinn = objectsByScene[SceneNames.Room_Jinn]["Jinn NPC"];
             Object.DontDestroyOnLoad(_jinn);

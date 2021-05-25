@@ -16,7 +16,8 @@ namespace RandomizerMod.Randomization
         None,
         InProgress,
         Validating,
-        Completed
+        Completed,
+        HelperLog
     }
 
     internal static class Randomizer
@@ -334,7 +335,13 @@ namespace RandomizerMod.Randomization
                 // Last ditch effort to save the seed. The list is ordered by which items are heuristically likely to unlock transitions at this point.
                 if (im.FindNextLocation(tm.pm) is string lastLocation)
                 {
-                    foreach (string item in new List<string> { "Mantis_Claw", "Monarch_Wings", "Desolate_Dive", "Isma's_Tear", "Crystal_Heart", "Mothwing_Cloak", "Shade_Cloak" })
+                    IEnumerable<string> progressionCandidates = new List<string> {
+                        "Mantis_Claw", "Monarch_Wings", "Left_Mantis_Claw", "Right_Mantis_Claw",
+                        "Desolate_Dive", "Isma's_Tear", "Crystal_Heart",
+                        "Mothwing_Cloak", "Shade_Cloak", "Right_Mothwing_Cloak", "Right_Shade_Cloak", "Left_Mothwing_Cloak", "Left_Shade_Cloak" }
+                        .Where(item => im.randomizedItems.Contains(item));
+                    
+                    foreach (string item in progressionCandidates)
                     {
                         if (!tm.pm.Has(item))
                         {
@@ -594,6 +601,20 @@ namespace RandomizerMod.Randomization
                             foreach (string i in vm.progressionShopItems[location])
                             {
                                 tm.UpdateReachableTransitions(i, true, pm);
+                            }
+                        }
+                        // It is possible for a shop to be both a vanilla progression location and contain randomized items, if
+                        // Charms or Keys are unrandomized
+                        if (ItemManager.shopItems.TryGetValue(location, out List<string> shopItems))
+                        {
+                            foreach (string newItem in shopItems)
+                            {
+                                items.Remove(newItem);
+                                if (LogicManager.GetItemDef(newItem).progression)
+                                {
+                                    pm.Add(newItem);
+                                    if (RandomizerMod.Instance.Settings.RandomizeTransitions) tm.UpdateReachableTransitions(newItem, true, pm);
+                                }
                             }
                         }
                     }

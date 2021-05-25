@@ -80,21 +80,7 @@ namespace RandomizerMod
             LogicManager.ParseXML(randoDLL));
             _logicParseThread.Start();
 
-            // Add hooks
-            UnityEngine.SceneManagement.SceneManager.activeSceneChanged += HandleSceneChanges;
-            ModHooks.Instance.LanguageGetHook += LanguageStringManager.GetLanguageString;
-            ModHooks.Instance.GetPlayerIntHook += IntOverride;
-            ModHooks.Instance.GetPlayerBoolHook += BoolGetOverride;
-            ModHooks.Instance.SetPlayerBoolHook += BoolSetOverride;
-            On.PlayMakerFSM.OnEnable += FixVoidHeart;
-            On.GameManager.BeginSceneTransition += EditTransition;
-            On.HeroController.CanFocus += DisableFocus;
-            On.PlayerData.CountGameCompletion += RandomizerCompletion;
-            On.PlayerData.SetInt += FixGrimmkinUpgradeCost;
-
-            RandomizerAction.Hook();
-            BenchHandler.Hook();
-            SceneEditor.Hook();
+            UnityEngine.SceneManagement.SceneManager.activeSceneChanged += OnMainMenu;
 
             // Setup preloaded objects
             ObjectCache.GetPrefabs(preloaded);
@@ -117,18 +103,125 @@ namespace RandomizerMod
 
         public override List<(string, string)> GetPreloadNames()
         {
-            return new List<(string, string)>
+            var preloads = new List<(string, string)>
             {
                 (SceneNames.Tutorial_01, "_Props/Chest/Item/Shiny Item (1)"),
                 (SceneNames.Tutorial_01, "_Enemies/Crawler 1"),
                 (SceneNames.Tutorial_01, "_Props/Cave Spikes (1)"),
                 (SceneNames.Tutorial_01, "_Markers/Death Respawn Marker"),
                 (SceneNames.Tutorial_01, "_Scenery/plat_float_17"),
+                (SceneNames.Tutorial_01, "_Props/Tut_tablet_top"),
+                (SceneNames.Tutorial_01, "_Props/Geo Rock 1"),
                 (SceneNames.Cliffs_02, "Soul Totem 5"),
-                (SceneNames.Ruins_House_01, "Grub Bottle/Grub"),
-                (SceneNames.Room_Jinn, "Jinn NPC")
+                (SceneNames.Room_Jinn, "Jinn NPC"),
+                (SceneNames.Abyss_19, "Grub Bottle/Grub"),
+                (SceneNames.Abyss_19, "Grub Bottle")
             };
+            if (!globalSettings.ReducePreloads)
+            {
+                preloads.AddRange(new List<(string, string)>
+                {
+                    (SceneNames.Abyss_19, "Geo Rock Abyss"),
+                    (SceneNames.Ruins2_05, "Geo Rock City 1"),
+                    (SceneNames.Deepnest_02, "Geo Rock Deepnest"),
+                    (SceneNames.Fungus2_11, "Geo Rock Fung 01"),
+                    (SceneNames.Fungus2_11, "Geo Rock Fung 02"),
+                    (SceneNames.RestingGrounds_10, "Geo Rock Grave 01"),
+                    (SceneNames.RestingGrounds_10, "Geo Rock Grave 02"),
+                    (SceneNames.Fungus1_12, "Geo Rock Green Path 01"),
+                    (SceneNames.Fungus1_12, "Geo Rock Green Path 02"),
+                    (SceneNames.Hive_01, "Geo Rock Hive"),
+                    (SceneNames.Mines_20, "Geo Rock Mine (4)"),
+                    (SceneNames.Deepnest_East_17, "Geo Rock Outskirts"),
+                    (SceneNames.Deepnest_East_17, "Giant Geo Egg")
+                });
+            }
+            return preloads;
         }
+
+        public void HookRandomizer()
+        {
+            UnityEngine.SceneManagement.SceneManager.activeSceneChanged += HandleSceneChanges;
+            ModHooks.Instance.LanguageGetHook += LanguageStringManager.GetLanguageString;
+            ModHooks.Instance.GetPlayerIntHook += IntOverride;
+            ModHooks.Instance.GetPlayerBoolHook += BoolGetOverride;
+            ModHooks.Instance.SetPlayerBoolHook += BoolSetOverride;
+            On.PlayMakerFSM.OnEnable += FixVoidHeart;
+            On.GameManager.BeginSceneTransition += EditTransition;
+            On.PlayerData.CountGameCompletion += RandomizerCompletion;
+            On.PlayerData.SetInt += FixGrimmkinUpgradeCost;
+
+            RecentItems.Hook();
+
+            CustomSkills.Hook();
+            RandomizerAction.Hook();
+            SceneEditor.Hook();
+
+            HookBenchwarp();
+        }
+
+        public void UnhookRandomizer()
+        {
+            UnityEngine.SceneManagement.SceneManager.activeSceneChanged -= HandleSceneChanges;
+            ModHooks.Instance.LanguageGetHook -= LanguageStringManager.GetLanguageString;
+            ModHooks.Instance.GetPlayerIntHook -= IntOverride;
+            ModHooks.Instance.GetPlayerBoolHook -= BoolGetOverride;
+            ModHooks.Instance.SetPlayerBoolHook -= BoolSetOverride;
+            On.PlayMakerFSM.OnEnable -= FixVoidHeart;
+            On.GameManager.BeginSceneTransition -= EditTransition;
+            On.PlayerData.CountGameCompletion -= RandomizerCompletion;
+            On.PlayerData.SetInt -= FixGrimmkinUpgradeCost;
+
+            RecentItems.UnHook();
+            CustomSkills.UnHook();
+            RandomizerAction.UnHook();
+            SceneEditor.UnHook();
+
+            UnHookBenchwarp();
+        }
+
+        private static Func<
+                    (string respawnScene, string respawnMarkerName, int respawnType, int mapZone),
+                    (string respawnScene, string respawnMarkerName, int respawnType, int mapZone)
+                    >
+                    BenchwarpGetStartDef = def => Instance == null || Instance.Settings == null ? def :
+                    (Instance.Settings.StartSceneName, Instance.Settings.StartRespawnMarkerName, Instance.Settings.StartRespawnType, Instance.Settings.StartMapZone);
+
+        private void HookBenchwarp()
+        {
+            try
+            {
+                FieldInfo field = Type.GetType("Benchwarp.Events, Benchwarp")
+                    .GetField("OnGetStartDef", BindingFlags.Public | BindingFlags.Static);
+
+                field.FieldType
+                    .GetEvent("Event", BindingFlags.Public | BindingFlags.Instance)
+                    .AddEventHandler(field.GetValue(null), BenchwarpGetStartDef);
+            }
+            catch
+            {
+                LogWarn("Randomizer was unable to access Benchwarp. Installing the latest version of Benchwarp is strongly advised.");
+                return;
+            }
+        }
+
+        private void UnHookBenchwarp()
+        {
+            try
+            {
+                FieldInfo field = Type.GetType("Benchwarp.Events, Benchwarp")
+                    .GetField("OnGetStartDef", BindingFlags.Public | BindingFlags.Static);
+
+                field.FieldType
+                    .GetEvent("Event", BindingFlags.Public | BindingFlags.Instance)
+                    .RemoveEventHandler(field.GetValue(null), BenchwarpGetStartDef);
+            }
+            catch
+            {
+                return;
+            }
+        }
+
 
         public static Sprite GetSprite(string name)
         {
@@ -151,12 +244,13 @@ namespace RandomizerMod
                 return;
             }
 
+            HookRandomizer();
+
             if (!LoadComplete())
             {
                 _logicParseThread.Join();
             }
 
-            RandoLogger.InitializeTracker();
             RandoLogger.InitializeSpoiler();
             RandoLogger.InitializeCondensedSpoiler();
 
@@ -170,6 +264,8 @@ namespace RandomizerMod
             {
                 LogError("Error in randomization:\n" + e);
             }
+
+            RandoLogger.InitializeTracker();
         }
 
         public int MakeAssemblyHash()
@@ -193,7 +289,8 @@ namespace RandomizerMod
 
         public override string GetVersion()
         {
-            string ver = "3.11.S";
+            string ver = "3.12.S";
+
             ver += $"({Math.Abs(MakeAssemblyHash() % 997)})";
 
             int minAPI = 53;
@@ -216,13 +313,19 @@ namespace RandomizerMod
             }
 
             float placedItems = (float)RandomizerMod.Instance.Settings.GetNumLocations();
-            if (placedItems == 0)
+            float foundItems = (float)RandomizerMod.Instance.Settings.GetItemsFound().Length;
+
+            // Count a pair (in, out) as a single transition check
+            float randomizedTransitions = RandomizerMod.Instance.Settings.RandomizeRooms ? 445f :
+                                            RandomizerMod.Instance.Settings.RandomizeAreas ? 80f : 0f;
+            float foundTransitions = (float)RandomizerMod.Instance.Settings.GetTransitionsFound().Length / 2f;
+            if (placedItems == 0 && randomizedTransitions == 0)
             {
                 PlayerData.instance.completionPercentage = 0;
                 return;
             }
 
-            float rawPercent = ((float)RandomizerMod.Instance.Settings.GetItemsFound().Length / placedItems) * 100f;
+            float rawPercent = (foundItems + foundTransitions) / (placedItems + randomizedTransitions) * 100f;
 
             PlayerData.instance.completionPercentage = (float)Math.Floor(rawPercent);
         }
@@ -371,8 +474,8 @@ namespace RandomizerMod
             }
             
             if (RandomizerMod.Instance.Settings.RandomizeRooms && (boolName == "troupeInTown" || boolName == "divineInTown")) return false;
-            if (boolName == "crossroadsInfected" && RandomizerMod.Instance.Settings.RandomizeRooms
-                && new List<string> { SceneNames.Crossroads_03, SceneNames.Crossroads_06, SceneNames.Crossroads_10, SceneNames.Crossroads_19 }.Contains(GameManager.instance.sceneName)) return false;
+            //if (boolName == "crossroadsInfected" && RandomizerMod.Instance.Settings.RandomizeRooms
+            //    && new List<string> { SceneNames.Crossroads_03, SceneNames.Crossroads_06, SceneNames.Crossroads_10, SceneNames.Crossroads_19 }.Contains(GameManager.instance.sceneName)) return false;
 
             return Ref.PD.GetBoolInternal(boolName);
         }
@@ -430,6 +533,7 @@ namespace RandomizerMod
             {
                 pd.SetInt("screamLevel", 1);
             }
+
             else if (boolName.StartsWith("RandomizerMod."))
             {
                 // format is RandomizerMod.GiveAction.ItemName.LocationName for shop bools. Only the item name is used for savesettings bools
@@ -473,6 +577,11 @@ namespace RandomizerMod
                 // Gotta update the acid pools after getting this
                 PlayMakerFSM.BroadcastEvent("GET ACID ARMOUR");
             }
+            else if (boolName == nameof(PlayerData.hasShadowDash) && value)
+            {
+                // Apparently this is enough to disable the shade gate walls
+                EventRegister.SendEvent("GOT SHADOW DASH");
+            }
             else if (boolName.StartsWith("gotCharm_"))
             {
                 // Check for Salubra notches if it's a charm
@@ -491,7 +600,7 @@ namespace RandomizerMod
             // Increments of the variable (collecting flames) will still increment the real value.
             if (Settings.RandomizeGrimmkinFlames && intName == "flamesCollected")
             {
-                var n = Ref.PD.GetIntInternal(intName);
+                int n = Ref.PD.GetIntInternal(intName);
                 return n > 3 ? 3 : n;
             }
 
@@ -533,12 +642,6 @@ namespace RandomizerMod
                 self.GetState("Set Current Item Num").RemoveTransitionsTo("Black Charm?");
                 self.GetState("Set Current Item Num").AddTransition("FINISHED", "Return Points");
             }
-        }
-
-        private bool DisableFocus(On.HeroController.orig_CanFocus orig, HeroController self)
-        {
-            if (RandomizerMod.Instance.Settings.Cursed && !RandomizerMod.Instance.Settings.GetBool(name: "canFocus")) return false;
-            else return orig(self);
         }
 
         // Will be moved out of RandomizerMod in the future
@@ -626,26 +729,28 @@ namespace RandomizerMod
             orig(self, info);
         }
 
+
+        private void OnMainMenu(Scene from, Scene to)
+        {
+            if (Ref.GM.GetSceneNameString() != SceneNames.Menu_Title) return;
+            // Reset on menu load
+            Settings = new SaveSettings();
+            RandomizerAction.ClearActions();
+            UnhookRandomizer();
+
+            try
+            {
+                MenuChanger.EditUI();
+            }
+            catch (Exception e)
+            {
+                LogError("Error editing menu:\n" + e);
+            }
+        }
         
 
         private void HandleSceneChanges(Scene from, Scene to)
         {
-            if (Ref.GM.GetSceneNameString() == SceneNames.Menu_Title)
-            {
-                // Reset settings on menu load
-                Settings = new SaveSettings();
-                RandomizerAction.ClearActions();
-
-                try
-                {
-                    MenuChanger.EditUI();
-                }
-                catch (Exception e)
-                {
-                    LogError("Error editing menu:\n" + e);
-                }
-            }
-
             if (Ref.GM.IsGameplayScene())
             {
                 try

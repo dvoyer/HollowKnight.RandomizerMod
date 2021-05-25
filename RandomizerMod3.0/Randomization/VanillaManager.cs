@@ -81,6 +81,40 @@ namespace RandomizerMod.Randomization
                 if (itemDef.progression)
                     progressionLocations.Add(item);
             }
+
+            // Add in split cloak in the vanilla manager. 
+            if (RandomizerMod.Instance.Settings.RandomizeCloakPieces && !RandomizerMod.Instance.Settings.RandomizeSkills)
+            {
+                int cloakState = new Random(RandomizerMod.Instance.Settings.Seed + 61).Next(4);
+                if (cloakState >= 2)
+                {
+                    ItemPlacements.Add(("Left_Mothwing_Cloak", "Mothwing_Cloak"));
+                    ItemPlacements.Add(("Right_Mothwing_Cloak", "Split_Mothwing_Cloak"));
+                    progressionNonShopItems.Add("Left_Mothwing_Cloak", "Mothwing_Cloak");
+                    progressionNonShopItems.Add("Right_Mothwing_Cloak", "Split_Mothwing_Cloak");
+                    progressionLocations.Add("Mothwing_Cloak");
+                }
+                else
+                {
+                    ItemPlacements.Add(("Right_Mothwing_Cloak", "Mothwing_Cloak"));
+                    ItemPlacements.Add(("Left_Mothwing_Cloak", "Split_Mothwing_Cloak"));
+                    progressionNonShopItems.Add("Right_Mothwing_Cloak", "Mothwing_Cloak");
+                    progressionNonShopItems.Add("Left_Mothwing_Cloak", "Split_Mothwing_Cloak");
+                    progressionLocations.Add("Mothwing_Cloak");
+                }
+                if (cloakState % 2 == 0)
+                {
+                    ItemPlacements.Add(("Left_Shade_Cloak", "Shade_Cloak"));
+                    progressionNonShopItems.Add("Left_Shade_Cloak", "Shade_Cloak");
+                    progressionLocations.Add("Left_Shade_Cloak");
+                }
+                else
+                {
+                    ItemPlacements.Add(("Right_Shade_Cloak", "Shade_Cloak"));
+                    progressionNonShopItems.Add("Right_Shade_Cloak", "Shade_Cloak");
+                    progressionLocations.Add("Right_Shade_Cloak");
+                }
+            }
         }
 
         internal void ResetReachableLocations(bool doUpdateQueue = true, ProgressionManager _pm = null)
@@ -140,7 +174,21 @@ namespace RandomizerMod.Randomization
             HashSet<string> unrandoItems = new HashSet<string>();
 
             if (!RandomizerMod.Instance.Settings.RandomizeDreamers) unrandoItems.UnionWith(LogicManager.GetItemsByPool("Dreamer"));
-            if (!RandomizerMod.Instance.Settings.RandomizeSkills) unrandoItems.UnionWith(LogicManager.GetItemsByPool("Skill"));
+            if (!RandomizerMod.Instance.Settings.RandomizeSkills)
+            {
+                unrandoItems.UnionWith(LogicManager.GetItemsByPool("Skill"));
+                if (RandomizerMod.Instance.Settings.RandomizeClawPieces)
+                {
+                    unrandoItems.Remove("Mantis_Claw");
+                    unrandoItems.UnionWith(LogicManager.GetItemsByPool("SplitClaw"));
+                }
+                if (RandomizerMod.Instance.Settings.RandomizeCloakPieces)
+                {
+                    // We'll remove these items from here, and add them back in after calling in Setup()
+                    unrandoItems.Remove("Mothwing_Cloak");
+                    unrandoItems.Remove("Shade_Cloak");
+                }    
+            }
             if (!RandomizerMod.Instance.Settings.RandomizeCharms) unrandoItems.UnionWith(LogicManager.GetItemsByPool("Charm"));
             if (!RandomizerMod.Instance.Settings.RandomizeKeys) unrandoItems.UnionWith(LogicManager.GetItemsByPool("Key"));
             if (!RandomizerMod.Instance.Settings.RandomizeMaskShards) unrandoItems.UnionWith(LogicManager.GetItemsByPool("Mask"));
@@ -152,10 +200,13 @@ namespace RandomizerMod.Randomization
             if (!RandomizerMod.Instance.Settings.RandomizeRelics) unrandoItems.UnionWith(LogicManager.GetItemsByPool("Relic"));
             if (!RandomizerMod.Instance.Settings.RandomizeMaps) unrandoItems.UnionWith(LogicManager.GetItemsByPool("Map"));
             if (!RandomizerMod.Instance.Settings.RandomizeStags) unrandoItems.UnionWith(LogicManager.GetItemsByPool("Stag"));
+
+            // Pretty sure these lines aren't necessary
             if (!RandomizerMod.Instance.Settings.RandomizeRocks) unrandoItems.UnionWith(LogicManager.GetItemsByPool("Rock"));
             if (!RandomizerMod.Instance.Settings.RandomizeSoulTotems) unrandoItems.UnionWith(LogicManager.GetItemsByPool("Soul"));
             if (!RandomizerMod.Instance.Settings.RandomizePalaceTotems) unrandoItems.UnionWith(LogicManager.GetItemsByPool("PalaceSoul"));
             if (!RandomizerMod.Instance.Settings.RandomizeLoreTablets) unrandoItems.UnionWith(LogicManager.GetItemsByPool("Lore"));
+            if (!RandomizerMod.Instance.Settings.RandomizePalaceTablets) unrandoItems.UnionWith(LogicManager.GetItemsByPool("PalaceLore"));
             // intercept maps and stags in randomizer action since the vanilla placement is much preferable to shinies
             // no reason to include grubs or essence. Logic for vanilla placements is handled directly in the progression manager
 
@@ -167,7 +218,26 @@ namespace RandomizerMod.Randomization
             HashSet<string> unrandoItems = new HashSet<string>();
 
             if (!RandomizerMod.Instance.Settings.RandomizeDreamers) unrandoItems.UnionWith(LogicManager.GetItemsByPool("Dreamer"));
-            if (!RandomizerMod.Instance.Settings.RandomizeSkills) unrandoItems.UnionWith(LogicManager.GetItemsByPool("Skill"));
+            if (!RandomizerMod.Instance.Settings.RandomizeSkills)
+            {
+                unrandoItems.UnionWith(LogicManager.GetItemsByPool("Skill"));
+                // If cloak pieces are randomized but skills are not, the Shade Cloak location does not give us logical access to a full dash.
+                // We'll copy the code used in the Setup() function to decide which shade cloak piece is there.
+                if (RandomizerMod.Instance.Settings.RandomizeCloakPieces)
+                {
+                    unrandoItems.Remove("Shade_Cloak");
+                    int cloakState = new Random(RandomizerMod.Instance.Settings.Seed + 61).Next(4) % 2;
+                    if (cloakState == 0)
+                    {
+                        unrandoItems.Add("Left_Shade_Cloak");
+                    }
+                    else
+                    {
+                        unrandoItems.Add("Right_Shade_Cloak");
+                    }
+                }
+            }
+            
             if (!RandomizerMod.Instance.Settings.RandomizeCharms) unrandoItems.UnionWith(LogicManager.GetItemsByPool("Charm"));
             if (!RandomizerMod.Instance.Settings.RandomizeKeys) unrandoItems.UnionWith(LogicManager.GetItemsByPool("Key"));
             // no reason to search other pools, because only this class of items can be progression in their vanilla locations

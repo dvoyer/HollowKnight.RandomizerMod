@@ -23,7 +23,8 @@ namespace RandomizerMod.Randomization
         Geo,
         Soul,
         Lifeblood,
-        Flame
+        Flame,
+        Lore
     }
 
     // ReSharper disable InconsistentNaming
@@ -55,6 +56,7 @@ namespace RandomizerMod.Randomization
         public string altObjectName;
         public string fsmName;
         public bool replace;
+        public string selfDestructFsmName;
         public string[] itemLogic;
         public List<(int, int)> processedItemLogic;
         public string[] areaLogic;
@@ -70,6 +72,14 @@ namespace RandomizerMod.Randomization
         public bool newShiny;
         public float x;
         public float y;
+        // This value is calculated as
+        // (Y coordinate of this object) - (Y coordinate of the Knight when
+        // standing on the ground next to or beneath it).
+        // It is used when replacing objects with grub jars or geo rocks so
+        // that the replacement object is always placed on the ground.
+        // If this is zero, the check will not be replaced by a jar/rock
+        // even if it is a grub/geo rock.
+        public float elevation;
 
         // charm variables
         public int charmNum;
@@ -102,6 +112,13 @@ namespace RandomizerMod.Randomization
 
         // Lifeblood flags
         public int lifeblood;
+
+        // Lore flags
+        public string loreSheet;
+        public string loreKey;
+        public Actions.ChangeShinyIntoText.TextType textType;
+        public string inspectName;
+        public string inspectFsmName;
 
         public string chestName;
         public string chestFsmName;
@@ -754,7 +771,7 @@ namespace RandomizerMod.Randomization
                 foreach (string i in _items[item].areaLogic) if (_progressionIndexedItemsForAreaRando.ContainsKey(i)) _progressionIndexedItemsForAreaRando[i].Add(item);
                 foreach (string i in _items[item].roomLogic) if (_progressionIndexedItemsForRoomRando.ContainsKey(i)) _progressionIndexedItemsForRoomRando[i].Add(item);
 
-                if (_items[item].pool == "Essence")
+                if (_items[item].pool == "Essence_Boss" || _items[item].pool == "Root")
                 {
                     foreach (string i in _items[item].itemLogic) essenceProgression.Add(i);
                     foreach (string i in _items[item].areaLogic) essenceProgression.Add(i);
@@ -773,6 +790,7 @@ namespace RandomizerMod.Randomization
                     foreach (string i in _items[item].roomLogic) flameProgression.Add(i);
                 }
             }
+
             foreach (string shop in ShopNames)
             {
                 foreach (string i in _shops[shop].itemLogic) if (_progressionIndexedItemsForItemRando.ContainsKey(i)) _progressionIndexedItemsForItemRando[i].Add(shop);
@@ -834,10 +852,11 @@ namespace RandomizerMod.Randomization
             progressionBitMask.Add("FIREBALLSKIPS", (16, 0));
             progressionBitMask.Add("DARKROOMS", (32, 0));
             progressionBitMask.Add("MILDSKIPS", (64, 0));
-            progressionBitMask.Add("NOTCURSED", (128, 0));
+            progressionBitMask.Add("NONRANDOMFOCUS", (128, 0));
             progressionBitMask.Add("CURSED", (256, 0));
+            progressionBitMask.Add("NONRANDOMNAIL", (512, 0));
 
-            int i = 9;
+            int i = 10;
 
             foreach (string itemName in ItemNames)
             {
@@ -999,6 +1018,8 @@ namespace RandomizerMod.Randomization
 
                 foreach (XmlNode fieldNode in transitionNode.ChildNodes)
                 {
+                    if (fieldNode.Name == "#comment") continue;
+
                     if (!transitionFields.TryGetValue(fieldNode.Name, out FieldInfo field))
                     {
                         LogWarn(
@@ -1086,6 +1107,8 @@ namespace RandomizerMod.Randomization
 
                 foreach (XmlNode fieldNode in itemNode.ChildNodes)
                 {
+                    if (fieldNode.Name == "#comment") continue;
+
                     if (!reqFields.TryGetValue(fieldNode.Name, out FieldInfo field))
                     {
                         LogWarn(
@@ -1153,6 +1176,17 @@ namespace RandomizerMod.Randomization
                             LogWarn($"Could not parse \"{fieldNode.InnerText}\" to CostType");
                         }
                     }
+                    else if (field.FieldType == typeof(Actions.ChangeShinyIntoText.TextType))
+                    {
+                        if (fieldNode.InnerText.TryToEnum(out Actions.ChangeShinyIntoText.TextType type))
+                        {
+                            field.SetValue(def, type);
+                        }
+                        else
+                        {
+                            LogWarn($"Could not parse \"{fieldNode.InnerText}\" to TextType");
+                        }
+                    }
                     else if (field.FieldType == typeof(int))
                     {
                         if (int.TryParse(fieldNode.InnerText, out int xmlInt))
@@ -1205,10 +1239,12 @@ namespace RandomizerMod.Randomization
 
                 foreach (XmlNode fieldNode in shopNode.ChildNodes)
                 {
+                    if (fieldNode.Name == "#comment") continue;
+
                     if (!shopFields.TryGetValue(fieldNode.Name, out FieldInfo field))
                     {
                         LogWarn(
-                            $"Xml node \"{fieldNode.Name}\" does not map to a field in struct ReqDef");
+                            $"Xml node \"{fieldNode.Name}\" does not map to a field in struct ShopDef");
                         continue;
                     }
 
@@ -1269,10 +1305,12 @@ namespace RandomizerMod.Randomization
 
                 foreach (XmlNode fieldNode in itemNode.ChildNodes)
                 {
+                    if (fieldNode.Name == "#comment") continue;
+
                     if (!waypointFields.TryGetValue(fieldNode.Name, out FieldInfo field))
                     {
                         LogWarn(
-                            $"Xml node \"{fieldNode.Name}\" does not map to a field in struct ReqDef");
+                            $"Xml node \"{fieldNode.Name}\" does not map to a field in struct Waypoint");
                         continue;
                     }
 
@@ -1309,10 +1347,12 @@ namespace RandomizerMod.Randomization
 
                 foreach (XmlNode fieldNode in startNode.ChildNodes)
                 {
+                    if (fieldNode.Name == "#comment") continue;
+
                     if (!startLocationFields.TryGetValue(fieldNode.Name, out FieldInfo field))
                     {
                         LogWarn(
-                            $"Xml node \"{fieldNode.Name}\" does not map to a field in struct ReqDef");
+                            $"Xml node \"{fieldNode.Name}\" does not map to a field in struct StartDef");
                         continue;
                     }
 

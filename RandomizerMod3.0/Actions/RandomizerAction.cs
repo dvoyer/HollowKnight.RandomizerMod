@@ -37,6 +37,8 @@ namespace RandomizerMod.Actions
             AdditiveBoolNames = new Dictionary<string, string>();
 
             int newShinies = 0;
+            int newGrubs = 0;
+            int newRocks = 0;
             string[] shopNames = LogicManager.ShopNames;
 
             // Loop non-shop items
@@ -62,6 +64,10 @@ namespace RandomizerMod.Actions
                     continue;
                 }
                 if (!settings.RandomizePalaceTotems && newItem.pool == "PalaceSoul") 
+                {
+                    continue;
+                }
+                if (!settings.RandomizePalaceTablets && newItem.pool == "PalaceLore")
                 {
                     continue;
                 }
@@ -99,7 +105,82 @@ namespace RandomizerMod.Actions
                     }
                 }
 
-                if (oldItem.replace)
+                if (!string.IsNullOrEmpty(oldItem.inspectName))
+                {
+                    // For some reason, in most cases the inspect region is a separate object to the lore tablet sprite, so
+                    // we have to disable it separately
+                    Actions.Add(new DisableLoreTablet(oldItem.sceneName, oldItem.inspectName, oldItem.inspectFsmName));
+                }
+                else if ((location == "Focus" || location == "World_Sense") && !settings.RandomizeLoreTablets)
+                {
+                    // Disable the Focus/World Sense tablets here
+                    Actions.Add(new DisableLoreTablet(oldItem.sceneName, "Tut_tablet_top", "Inspection"));
+                }
+
+                // Some objects destroy themselves based on a pdbool check via the FSM. This executes before we have
+                // a chance to replace with a shiny when coming from a boss scene. Disable that behaviour here;
+                // we need to do it here to cover the grub, rock cases.
+                if (!string.IsNullOrEmpty(oldItem.selfDestructFsmName) && oldItem.replace)
+                {
+                    // With NPC Item Dialogue we shouldn't do this for the VS pickup
+                    if (!(settings.NPCItemDialogue && location == "Vengeful_Spirit"))
+                    {
+                        Actions.Add(new PreventSelfDestruct(oldItem.sceneName, oldItem.objectName, oldItem.selfDestructFsmName));
+                    }
+                }
+
+                bool hasCost = (oldItem.cost != 0 || oldItem.costType != AddYNDialogueToShiny.CostType.Geo) && location != "Vessel_Fragment-Basin";
+                bool canReplaceWithObj = oldItem.elevation != 0 && !(settings.NPCItemDialogue && location == "Vengeful_Spirit") && !hasCost;
+                bool replacedWithGrub = newItem.pool == "Grub" && canReplaceWithObj;
+                bool replacedWithGeoRock = newItem.pool == "Rock" && canReplaceWithObj;
+
+                if (replacedWithGrub)
+                {
+                    string jarName = "Randomizer Grub Jar " + newGrubs++;
+                    if (oldItem.newShiny)
+                    {
+                        Actions.Add(new CreateNewGrubJar(oldItem.sceneName, oldItem.x, oldItem.y + CreateNewGrubJar.GRUB_JAR_ELEVATION - oldItem.elevation, jarName, newItemName, location));
+                    }
+                    else
+                    {
+                        Actions.Add(new ReplaceObjectWithGrubJar(oldItem.sceneName, oldItem.objectName, oldItem.elevation, jarName, newItemName, location));
+                        // Add a PreventSelfDestruct for shiny items not typically replaced.
+                        // Add the action only for items which set a bool, because only those will use a
+                        // PlayerData rather than a SceneData check for their original Self Destruction.
+                        if (!oldItem.replace && oldItem.fsmName == "Shiny Control" && !string.IsNullOrEmpty(oldItem.boolName))
+                        {
+                            Actions.Add(new PreventSelfDestruct(oldItem.sceneName, oldItem.objectName, "Shiny Control"));
+                        }
+
+                    }
+                }
+                else if (replacedWithGeoRock)
+                {
+                    string rockName = "Randomizer Geo Rock " + newRocks++;
+                    GeoRockSubtype subtype = GetRockSubtype(newItem.objectName);
+                    // The 420 geo rock gives 5-geo pieces, so the amount
+                    // spawned must be reduced proportionally.
+                    int geo = newItem.geo;
+                    if (subtype == GeoRockSubtype.Outskirts420) {
+                        geo /= 5;
+                    }
+                    if (oldItem.newShiny)
+                    {
+                        Actions.Add(new CreateNewGeoRock(oldItem.sceneName, oldItem.x, oldItem.y + CreateNewGeoRock.Elevation[subtype] - oldItem.elevation, rockName, newItemName, location, geo, subtype));
+                    }
+                    else
+                    {
+                        Actions.Add(new ReplaceObjectWithGeoRock(oldItem.sceneName, oldItem.objectName, oldItem.elevation, rockName, newItemName, location, geo, subtype));
+                        // Add a PreventSelfDestruct for shiny items not typically replaced 
+                        // Add the action only for items which set a bool, because only those will use a
+                        // PlayerData rather than a SceneData check for their original Self Destruction.
+                        if (!oldItem.replace && oldItem.fsmName == "Shiny Control" && !string.IsNullOrEmpty(oldItem.boolName))
+                        {
+                            Actions.Add(new PreventSelfDestruct(oldItem.sceneName, oldItem.objectName, "Shiny Control"));
+                        }
+                    }
+                }
+                else if (oldItem.replace)
                 {
                     string replaceShinyName = "Randomizer Shiny " + newShinies++;
                     if (location == "Dream_Nail" || location == "Mask_Shard-Brooding_Mawlek" || location == "Nailmaster's_Glory" || location == "Godtuner")
@@ -128,6 +209,14 @@ namespace RandomizerMod.Actions
                     {
                         newShinyName = "New Shiny"; // legacy name for scene edits
                     }
+                    else if (location.StartsWith("Boss_Geo"))
+                    {
+                        newShinyName = "New Shiny Boss Geo";
+                    }
+                    else if (location == "Split_Mothwing_Cloak")
+                    {
+                        newShinyName = "New Shiny Split Cloak";
+                    }
                     Actions.Add(new CreateNewShiny(oldItem.sceneName, oldItem.x, oldItem.y, newShinyName));
                     oldItem.objectName = newShinyName;
                     oldItem.fsmName = "Shiny Control";
@@ -141,7 +230,8 @@ namespace RandomizerMod.Actions
                     oldItem.objectName = "Randomizer Chest Shiny";
                     oldItem.fsmName = "Shiny Control";
                     oldItem.type = ItemType.Charm;
-                } else if (oldItem.type == ItemType.Flame)
+                }
+                else if (oldItem.type == ItemType.Flame)
                 {
                     // Even if the new item is also a flame, this action should still run in order to
                     // guarantee that the player can't be locked out of getting it by upgrading their
@@ -173,6 +263,16 @@ namespace RandomizerMod.Actions
                     Actions.Add(new ChangeBoolTest("RestingGrounds_04", "PostDreamnail", "FSM", "Check",
                         newItemName, playerdata: false,
                         altTest: () => RandomizerMod.Instance.Settings.CheckLocationFound(location)));
+                }
+
+                if (location == "Vessel_Fragment-Basin")
+                {
+                    Actions.Add(new ReplaceBasinVesselWithShiny(oldItem.objectName));
+                }
+
+                if (replacedWithGrub || replacedWithGeoRock)
+                {
+                    continue;
                 }
 
                 switch (newItem.type)
@@ -226,6 +326,12 @@ namespace RandomizerMod.Actions
                         break;
                     case ItemType.Lifeblood:
                         Actions.Add(new ChangeShinyIntoLifeblood(oldItem.sceneName, oldItem.objectName, oldItem.fsmName, newItem.lifeblood, newItemName, location));
+                        
+                        if (!string.IsNullOrEmpty(oldItem.altObjectName))
+                        {
+                            Actions.Add(new ChangeShinyIntoLifeblood(oldItem.sceneName, oldItem.altObjectName,
+                                oldItem.fsmName, newItem.lifeblood, newItemName, location));
+                        }
                         break;
 
                     case ItemType.Soul:
@@ -239,9 +345,21 @@ namespace RandomizerMod.Actions
                         }
                         break;
 
+                    case ItemType.Lore:
+                        newItem.loreSheet = string.IsNullOrEmpty(newItem.loreSheet) ? "Lore Tablets" : newItem.loreSheet;
+
+                        Actions.Add(new ChangeShinyIntoText(oldItem.sceneName, oldItem.objectName, oldItem.fsmName,
+                            newItem.loreKey, newItem.loreSheet, newItem.textType, newItemName, location));
+
+                        if (!string.IsNullOrEmpty(oldItem.altObjectName))
+                        {
+                            Actions.Add(new ChangeShinyIntoText(oldItem.sceneName, oldItem.altObjectName, oldItem.fsmName,
+                                newItem.loreKey, newItem.loreSheet, newItem.textType, newItemName, location));
+                        }
+                        break;
                 }
 
-                if (oldItem.cost != 0 || oldItem.costType != AddYNDialogueToShiny.CostType.Geo)
+                if (hasCost)
                 {
                     int cost = oldItem.cost;
                     if (oldItem.costType == AddYNDialogueToShiny.CostType.Essence || oldItem.costType == AddYNDialogueToShiny.CostType.Grub)
@@ -317,6 +435,60 @@ namespace RandomizerMod.Actions
             }
 
             shopActions.ForEach(action => Actions.Add(action));
+
+            // Add an action for each shop to allow showing Lore
+            if (settings.RandomizeLoreTablets || settings.RandomizePalaceTablets)
+            {
+                Actions.Add(new ShowLoreTextInShop(SceneNames.Room_shop, "UI List", "Confirm Control"));
+                Actions.Add(new ShowLoreTextInShop(SceneNames.Room_mapper, "UI List", "Confirm Control"));
+                Actions.Add(new ShowLoreTextInShop(SceneNames.Room_Charm_Shop, "UI List", "Confirm Control"));
+                Actions.Add(new ShowLoreTextInShop(SceneNames.Fungus2_26, "UI List", "Confirm Control"));
+            }
+        }
+
+        private static GeoRockSubtype GetRockSubtype(string objName) {
+            GeoRockSubtype subtype = GeoRockSubtype.Default;
+            if (objName.Contains("Abyss")) {
+                subtype = GeoRockSubtype.Abyss;
+            }
+            else if (objName.Contains("City")) {
+                subtype = GeoRockSubtype.City;
+            }
+            else if (objName.Contains("Deepnest")) {
+                subtype = GeoRockSubtype.Deepnest;
+            }
+            else if (objName.Contains("Fung 01")) {
+                subtype = GeoRockSubtype.Fung01;
+            }
+            else if (objName.Contains("Fung 02")) {
+                subtype = GeoRockSubtype.Fung02;
+            }
+            else if (objName.Contains("Grave 01")) {
+                subtype = GeoRockSubtype.Grave01;
+            }
+            else if (objName.Contains("Grave 02")) {
+                subtype = GeoRockSubtype.Grave02;
+            }
+            else if (objName.Contains("Green Path 01")) {
+                subtype = GeoRockSubtype.GreenPath01;
+            }
+            else if (objName.Contains("Green Path 02")) {
+                subtype = GeoRockSubtype.GreenPath02;
+            }
+            else if (objName.Contains("Hive")) {
+                subtype = GeoRockSubtype.Hive;
+            }
+            else if (objName.Contains("Mine")) {
+                subtype = GeoRockSubtype.Mine;
+            }
+            else if (objName.Contains("Outskirts")) {
+                subtype = GeoRockSubtype.Outskirts;
+            }
+            else if (objName == "Giant Geo Egg") {
+                subtype = GeoRockSubtype.Outskirts420;
+            }
+
+            return ObjectCache.GetPreloadedRockType(subtype);
         }
 
         public static string GetAdditivePrefix(string itemName)

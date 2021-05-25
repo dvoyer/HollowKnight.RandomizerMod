@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Modding;
 using RandomizerMod.Randomization;
 using static RandomizerMod.RandoLogger;
 using static RandomizerMod.LogHelper;
@@ -42,19 +43,20 @@ namespace RandomizerMod
             SettingsBool,
             None,
             AddSoul,
+            Lore,
 
             Lifeblood
         }
 
         public static void ShowEffectiveItemPopup(string item)
         {
-            var def = LogicManager.GetItemDef(RandomizerMod.Instance.Settings.GetEffectiveItem(item));
+            ReqDef def = LogicManager.GetItemDef(RandomizerMod.Instance.Settings.GetEffectiveItem(item));
             ShowItemPopup(def.nameKey, def.shopSpriteKey);
         }
 
         private static void ShowItemPopup(string nameKey, string spriteName)
         {
-            var popup = ObjectCache.RelicGetMsg;
+            GameObject popup = ObjectCache.RelicGetMsg;
             popup.transform.Find("Text").GetComponent<TMPro.TextMeshPro>().text = LanguageStringManager.GetLanguageString(nameKey, "UI");
             popup.transform.Find("Icon").GetComponent<SpriteRenderer>().sprite = RandomizerMod.GetSprite(spriteName);
             popup.SetActive(true);
@@ -69,6 +71,11 @@ namespace RandomizerMod
 
             item = LogicManager.RemoveDuplicateSuffix(item);
 
+            if (RandomizerMod.Instance.globalSettings.RecentItems)
+            {
+                RecentItems.AddItem(item, location, showArea: true);
+            }
+
             switch (action)
             {
                 default:
@@ -81,6 +88,10 @@ namespace RandomizerMod
                         string intName = LogicManager.GetItemDef(item).intName;
                     }
                     PlayerData.instance.IncrementInt(LogicManager.GetItemDef(item).intName);
+                    if (LogicManager.GetItemDef(item).intName == nameof(PlayerData.instance.flamesCollected))
+                    {
+                        RandomizerMod.Instance.Settings.TotalFlamesCollected += 1;
+                    }
                     break;
 
                 case GiveAction.Charm:
@@ -125,6 +136,22 @@ namespace RandomizerMod
 
                 case GiveAction.AddSoul:
                     HeroController.instance.AddMPCharge(200);
+                    break;
+
+                case GiveAction.Lore:
+                    if (LogicManager.ShopNames.Contains(location)) break;
+                    AudioSource.PlayClipAtPoint(ObjectCache.LoreSound,
+                        new Vector3(
+                            Camera.main.transform.position.x - 2,
+                            Camera.main.transform.position.y,
+                            Camera.main.transform.position.z + 2
+                        ));
+                    AudioSource.PlayClipAtPoint(ObjectCache.LoreSound,
+                        new Vector3(
+                            Camera.main.transform.position.x + 2,
+                            Camera.main.transform.position.y,
+                            Camera.main.transform.position.z + 2
+                        ));
                     break;
 
                 case GiveAction.Map:
@@ -369,12 +396,24 @@ namespace RandomizerMod
                     break;
                 
                 case GiveAction.Lifeblood:
-                    var n = LogicManager.GetItemDef(item).lifeblood;
+                    int n = LogicManager.GetItemDef(item).lifeblood;
                     for (int i = 0; i < n; i++)
                     {
                         EventRegister.SendEvent("ADD BLUE HEALTH");
                     }
                     break;
+            }
+
+            // With Cursed Nail active, drop the vine platform so they can escape from thorns without softlocking
+            // Break the Thorns Vine here; this works whether or not the item is a shiny.
+            if (location == "Thorns_of_Agony" && RandomizerMod.Instance.Settings.CursedNail && RandomizerMod.Instance.Settings.ExtraPlatforms)
+            {
+                if (GameObject.Find("Vine") is GameObject vine)
+                {
+                    VinePlatformCut vinecut = vine.GetComponent<VinePlatformCut>();
+                    bool activated = ReflectionHelper.GetAttr<VinePlatformCut, bool>(vinecut, "activated");
+                    if (!activated) vinecut.Cut();
+                }
             }
 
             // additive, kingsoul, bool type items can all have additive counts

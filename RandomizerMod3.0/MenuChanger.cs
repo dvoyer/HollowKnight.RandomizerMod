@@ -79,35 +79,43 @@ namespace RandomizerMod
             RandoMenuItem<bool> RandoGrubBtn = new RandoMenuItem<bool>(back, new Vector2(700, 480), "Grubs", false, true);
             RandoMenuItem<bool> RandoCocoonsBtn = new RandoMenuItem<bool>(back, new Vector2(1100, 480), "Lifeblood Cocoons", false, true);
             RandoMenuItem<bool> RandoSoulTotemsBtn = new RandoMenuItem<bool>(back, new Vector2(700, 400), "Soul Totems", false, true);
-            RandoMenuItem<bool> RandoPalaceTotemsBtn = new RandoMenuItem<bool>(back, new Vector2(1100, 400), "Palace Totems", false, true);
+            RandoMenuItem<bool> RandoLoreTabletsBtn = new RandoMenuItem<bool>(back, new Vector2(1100, 400), "Lore Tablets", false, true);
             RandoMenuItem<bool> RandoFlamesBtn = new RandoMenuItem<bool>(back, new Vector2(700, 320), "Grimmkin Flames", false, true);
             RandoMenuItem<bool> RandoGeoRocksBtn = new RandoMenuItem<bool>(back, new Vector2(1100, 320), "Geo Rocks", false, true);
             RandoMenuItem<bool> RandoBossEssenceBtn = new RandoMenuItem<bool>(back, new Vector2(700, 240), "Boss Essence", false, true);
-            //RandoMenuItem<bool> RandoLoreTabletsBtn = new RandoMenuItem<bool>(back, new Vector2(1100, 320), "Lore Tablets", false, true);
-            
+            RandoMenuItem<bool> RandoBossGeoBtn = new RandoMenuItem<bool>(back, new Vector2(1100, 240), "Boss Geo", false, true);
+
+            RandoMenuItem<bool> RandoPalaceBtn = new RandoMenuItem<bool>(back, new Vector2(0, 400), "Palace Totems/Tablets", false, true);
+
             RandoMenuItem<bool> RandoStartItemsBtn = new RandoMenuItem<bool>(back, new Vector2(900, 80), "Randomize Start Items", false, true);
             RandoMenuItem<string> RandoStartLocationsModeBtn = new RandoMenuItem<string>(back, new Vector2(900, 0), "Start Location Setting", "Select", "Random");
             RandoMenuItem<string> StartLocationsListBtn = new RandoMenuItem<string>(back, new Vector2(900, -80), "Start Location", LogicManager.StartLocations);
 
-            RandoMenuItem<string> presetSkipsBtn = new RandoMenuItem<string>(back, new Vector2(-900, 1040), "Preset", "Easy", "Medium", "Hard", "Custom");
-            RandoMenuItem<bool> mildSkipsBtn = new RandoMenuItem<bool>(back, new Vector2(-900, 960), "Mild Skips", false, true);
-            RandoMenuItem<bool> shadeSkipsBtn = new RandoMenuItem<bool>(back, new Vector2(-900, 880), "Shade Skips", false, true);
-            RandoMenuItem<bool> fireballSkipsBtn = new RandoMenuItem<bool>(back, new Vector2(-900, 800), "Fireball Skips", false, true);
-            RandoMenuItem<bool> acidSkipsBtn = new RandoMenuItem<bool>(back, new Vector2(-900, 720), "Acid Skips", false, true);
-            RandoMenuItem<bool> spikeTunnelsBtn = new RandoMenuItem<bool>(back, new Vector2(-900, 640), "Spike Tunnels", false, true);
-            RandoMenuItem<bool> darkRoomsBtn = new RandoMenuItem<bool>(back, new Vector2(-900, 560), "Dark Rooms", false, true);
-            RandoMenuItem<bool> spicySkipsBtn = new RandoMenuItem<bool>(back, new Vector2(-900, 480), "Spicy Skips", false, true);
+            RandoMenuItem<string> presetSkipsBtn = new RandoMenuItem<string>(back, new Vector2(-900, 1120), "Preset", "Easy", "Medium", "Hard", "Custom");
+            RandoMenuItem<bool> mildSkipsBtn = new RandoMenuItem<bool>(back, new Vector2(-900, 1040), "Mild Skips", false, true);
+            RandoMenuItem<bool> shadeSkipsBtn = new RandoMenuItem<bool>(back, new Vector2(-900, 960), "Shade Skips", false, true);
+            RandoMenuItem<bool> fireballSkipsBtn = new RandoMenuItem<bool>(back, new Vector2(-900, 880), "Fireball Skips", false, true);
+            RandoMenuItem<bool> acidSkipsBtn = new RandoMenuItem<bool>(back, new Vector2(-900, 800), "Acid Skips", false, true);
+            RandoMenuItem<bool> spikeTunnelsBtn = new RandoMenuItem<bool>(back, new Vector2(-900, 720), "Spike Tunnels", false, true);
+            RandoMenuItem<bool> darkRoomsBtn = new RandoMenuItem<bool>(back, new Vector2(-900, 640), "Dark Rooms", false, true);
+            RandoMenuItem<bool> spicySkipsBtn = new RandoMenuItem<bool>(back, new Vector2(-900, 560), "Spicy Skips", false, true);
 
-            RandoMenuItem<bool> charmNotchBtn = new RandoMenuItem<bool>(back, new Vector2(-900, 300), "Salubra Notches", true, false);
-            RandoMenuItem<bool> grubfatherBtn = new RandoMenuItem<bool>(back, new Vector2(-900, 220), "Fast Grubfather", true, false);
-            RandoMenuItem<bool> EarlyGeoBtn = new RandoMenuItem<bool>(back, new Vector2(-900, 140), "Early Geo", true, false);
-            RandoMenuItem<bool> softlockBtn = new RandoMenuItem<bool>(back, new Vector2(-900, 60), "Extra Platforms", true, false);
+            RandoMenuItem<bool> charmNotchBtn = new RandoMenuItem<bool>(back, new Vector2(-900, 380), "Salubra Notches", true, false);
+            RandoMenuItem<bool> preloadsBtn = new RandoMenuItem<bool>(back, new Vector2(-900, 300), "Reduce Preloads", true, false);
+            preloadsBtn.SetSelection(RandomizerMod.Instance.globalSettings.ReducePreloads);
+            RandoMenuItem<bool> EarlyGeoBtn = new RandoMenuItem<bool>(back, new Vector2(-900, 220), "Early Geo", true, false);
+            RandoMenuItem<bool> softlockBtn = new RandoMenuItem<bool>(back, new Vector2(-900, 140), "Extra Platforms", true, false);
+            RandoMenuItem<bool> recentItemsBtn = new RandoMenuItem<bool>(back, new Vector2(-900, 60), "Show Recent Items", true, false);
+            recentItemsBtn.SetSelection(RandomizerMod.Instance.globalSettings.RecentItems);
             RandoMenuItem<bool> npcBtn = new RandoMenuItem<bool>(back, new Vector2(-900, -20), "NPC Item Dialogue", true, false);
-            if (!RandomizerMod.Instance.globalSettings.NPCItemDialogue) npcBtn.SetSelection(false);
+            npcBtn.SetSelection(RandomizerMod.Instance.globalSettings.NPCItemDialogue);
             RandoMenuItem<bool> jijiBtn = new RandoMenuItem<bool>(back, new Vector2(-900, -100), "Jiji Hints", false, true);
 
             RandoMenuItem<string> modeBtn = new RandoMenuItem<string>(back, new Vector2(0, 1040), "Mode", "Item Randomizer", "Item + Area Randomizer", "Item + Connected-Area Room Randomizer", "Item + Room Randomizer");
-            RandoMenuItem<string> cursedBtn = new RandoMenuItem<string>(back, new Vector2(0, 960), "Cursed", "no", "noo", "noooo", "noooooooo", "noooooooooooooooo", "Oh yeah");
+            RandoMenuItem<string> cursedBtn = new RandoMenuItem<string>(back, new Vector2(0, 960), "Cursed", "no", "noo", "noooo", "noooooooo", "noooooooooooooooo", "Oh yeah", "Just focus");
+            RandoMenuItem<bool> splitCloakBtn = new RandoMenuItem<bool>(back, new Vector2(-250, 880), "Split Cloak", false, true);
+            RandoMenuItem<bool> splitClawBtn = new RandoMenuItem<bool>(back, new Vector2(250, 880), "Split Claw", false, true);
+            RandoMenuItem<bool> cursedNailBtn = new RandoMenuItem<bool>(back, new Vector2(0, 800), "Cursed Nail", false, true);
             RandoMenuItem<bool> RandoSpoilerBtn = new RandoMenuItem<bool>(back, new Vector2(0, 0), "Create Spoiler Log", true, false);
 
             // Create seed entry field
@@ -147,8 +155,8 @@ namespace RandomizerMod
             };
 
             // Create some labels
-            CreateLabel(back, new Vector2(-900, 1130), "Required Skips");
-            CreateLabel(back, new Vector2(-900, 380), "Quality of Life");
+            CreateLabel(back, new Vector2(-900, 1210), "Required Skips");
+            CreateLabel(back, new Vector2(-900, 460), "Quality of Life");
             CreateLabel(back, new Vector2(900, 1290), "Item Randomization");
             CreateLabel(back, new Vector2(900, 160), "Start Settings");
             CreateLabel(back, new Vector2(0, 200), "Use of Benchwarp mod may be required");
@@ -182,9 +190,9 @@ namespace RandomizerMod
             darkRoomsBtn.Button.SetNavigation(spikeTunnelsBtn.Button, startRandoBtn, spicySkipsBtn.Button, darkRoomsBtn.Button);
             spicySkipsBtn.Button.SetNavigation(darkRoomsBtn.Button, startRandoBtn, charmNotchBtn.Button, spicySkipsBtn.Button);
 
-            charmNotchBtn.Button.SetNavigation(spicySkipsBtn.Button, startRandoBtn, grubfatherBtn.Button, charmNotchBtn.Button);
-            grubfatherBtn.Button.SetNavigation(charmNotchBtn.Button, startRandoBtn, EarlyGeoBtn.Button, grubfatherBtn.Button);
-            EarlyGeoBtn.Button.SetNavigation(grubfatherBtn.Button, startRandoBtn, softlockBtn.Button, EarlyGeoBtn.Button);
+            charmNotchBtn.Button.SetNavigation(spicySkipsBtn.Button, startRandoBtn, preloadsBtn.Button, charmNotchBtn.Button);
+            preloadsBtn.Button.SetNavigation(charmNotchBtn.Button, startRandoBtn, EarlyGeoBtn.Button, preloadsBtn.Button);
+            EarlyGeoBtn.Button.SetNavigation(preloadsBtn.Button, startRandoBtn, softlockBtn.Button, EarlyGeoBtn.Button);
             softlockBtn.Button.SetNavigation(EarlyGeoBtn.Button, startRandoBtn, npcBtn.Button, softlockBtn.Button);
             npcBtn.Button.SetNavigation(softlockBtn.Button, startRandoBtn, jijiBtn.Button, npcBtn.Button);
             jijiBtn.Button.SetNavigation(npcBtn.Button, startRandoBtn, presetSkipsBtn.Button, jijiBtn.Button);
@@ -206,12 +214,13 @@ namespace RandomizerMod
             RandoMapBtn.Button.SetNavigation(RandoEggBtn.Button, RandoRootsBtn.Button, RandoGrubBtn.Button, startRandoBtn);
             RandoRootsBtn.Button.SetNavigation(RandoStagBtn.Button, RandoRootsBtn.Button, RandoCocoonsBtn.Button, RandoMapBtn.Button);
             RandoGrubBtn.Button.SetNavigation(RandoMapBtn.Button, RandoCocoonsBtn.Button, RandoSoulTotemsBtn.Button, startRandoBtn);
-            RandoCocoonsBtn.Button.SetNavigation(RandoRootsBtn.Button, RandoCocoonsBtn.Button, RandoPalaceTotemsBtn.Button, RandoGrubBtn.Button);
-            RandoSoulTotemsBtn.Button.SetNavigation(RandoGrubBtn.Button, RandoPalaceTotemsBtn.Button, RandoFlamesBtn.Button, startRandoBtn);
-            RandoPalaceTotemsBtn.Button.SetNavigation(RandoCocoonsBtn.Button, RandoPalaceTotemsBtn.Button, RandoGeoRocksBtn.Button, RandoSoulTotemsBtn.Button);
+            RandoCocoonsBtn.Button.SetNavigation(RandoRootsBtn.Button, RandoCocoonsBtn.Button, RandoLoreTabletsBtn.Button, RandoGrubBtn.Button);
+            RandoSoulTotemsBtn.Button.SetNavigation(RandoGrubBtn.Button, RandoLoreTabletsBtn.Button, RandoFlamesBtn.Button, startRandoBtn);
+            RandoLoreTabletsBtn.Button.SetNavigation(RandoCocoonsBtn.Button, RandoLoreTabletsBtn.Button, RandoGeoRocksBtn.Button, RandoSoulTotemsBtn.Button);
             RandoFlamesBtn.Button.SetNavigation(RandoSoulTotemsBtn.Button, RandoGeoRocksBtn.Button, RandoBossEssenceBtn.Button, startRandoBtn);
-            RandoGeoRocksBtn.Button.SetNavigation(RandoPalaceTotemsBtn.Button, RandoGeoRocksBtn.Button, RandoBossEssenceBtn.Button, RandoFlamesBtn.Button);
-            RandoBossEssenceBtn.Button.SetNavigation(RandoFlamesBtn.Button, RandoBossEssenceBtn.Button, RandoStartItemsBtn.Button, RandoBossEssenceBtn.Button);
+            RandoGeoRocksBtn.Button.SetNavigation(RandoLoreTabletsBtn.Button, RandoGeoRocksBtn.Button, RandoBossGeoBtn.Button, RandoFlamesBtn.Button);
+            RandoBossEssenceBtn.Button.SetNavigation(RandoFlamesBtn.Button, RandoBossGeoBtn.Button, RandoStartItemsBtn.Button, RandoBossEssenceBtn.Button);
+            RandoBossGeoBtn.Button.SetNavigation(RandoGeoRocksBtn.Button, RandoBossGeoBtn.Button, RandoStartItemsBtn.Button, RandoBossEssenceBtn.Button);
             
             RandoStartItemsBtn.Button.SetNavigation(RandoBossEssenceBtn.Button, RandoStartItemsBtn.Button, RandoStartLocationsModeBtn.Button, startRandoBtn);
             RandoStartLocationsModeBtn.Button.SetNavigation(RandoStartItemsBtn.Button, RandoStartLocationsModeBtn.Button, StartLocationsListBtn.Button, startRandoBtn);
@@ -280,10 +289,11 @@ namespace RandomizerMod
                         RandoGeoRocksBtn.SetSelection(false);
                         RandoCocoonsBtn.SetSelection(false);
                         RandoSoulTotemsBtn.SetSelection(false);
-                        RandoPalaceTotemsBtn.SetSelection(false);
-                        //RandoLoreTabletsBtn.SetSelection(false);
+                        RandoPalaceBtn.SetSelection(false);
+                        RandoLoreTabletsBtn.SetSelection(false);
                         RandoFlamesBtn.SetSelection(false);
                         RandoBossEssenceBtn.SetSelection(false);
+                        RandoBossGeoBtn.SetSelection(false);
                         break;
                     case "Super":
                         RandoDreamersBtn.SetSelection(true);
@@ -304,10 +314,11 @@ namespace RandomizerMod
                         RandoGeoRocksBtn.SetSelection(false);
                         RandoCocoonsBtn.SetSelection(false);
                         RandoSoulTotemsBtn.SetSelection(false);
-                        RandoPalaceTotemsBtn.SetSelection(false);
-                        //RandoLoreTabletsBtn.SetSelection(false);
+                        RandoPalaceBtn.SetSelection(false);
+                        RandoLoreTabletsBtn.SetSelection(false);
                         RandoFlamesBtn.SetSelection(false);
                         RandoBossEssenceBtn.SetSelection(false);
+                        RandoBossGeoBtn.SetSelection(false);
                         break;
                     case "LifeTotems":
                         RandoDreamersBtn.SetSelection(true);
@@ -328,10 +339,11 @@ namespace RandomizerMod
                         RandoGeoRocksBtn.SetSelection(false);
                         RandoCocoonsBtn.SetSelection(true);
                         RandoSoulTotemsBtn.SetSelection(true);
-                        RandoPalaceTotemsBtn.SetSelection(true);
-                        //RandoLoreTabletsBtn.SetSelection(false);
+                        RandoPalaceBtn.SetSelection(true);
+                        RandoLoreTabletsBtn.SetSelection(false);
                         RandoFlamesBtn.SetSelection(false);
                         RandoBossEssenceBtn.SetSelection(false);
+                        RandoBossGeoBtn.SetSelection(false);
                         break;
                     case "Spoiler DAB":
                         RandoDreamersBtn.SetSelection(true);
@@ -352,10 +364,11 @@ namespace RandomizerMod
                         RandoGeoRocksBtn.SetSelection(false);
                         RandoCocoonsBtn.SetSelection(true);
                         RandoSoulTotemsBtn.SetSelection(true);
-                        RandoPalaceTotemsBtn.SetSelection(false);
-                        //RandoLoreTabletsBtn.SetSelection(false);
+                        RandoPalaceBtn.SetSelection(false);
+                        RandoLoreTabletsBtn.SetSelection(false);
                         RandoFlamesBtn.SetSelection(false);
                         RandoBossEssenceBtn.SetSelection(false);
+                        RandoBossGeoBtn.SetSelection(false);
                         break;
                     case "EVERYTHING":
                         RandoDreamersBtn.SetSelection(true);
@@ -376,10 +389,11 @@ namespace RandomizerMod
                         RandoGeoRocksBtn.SetSelection(true);
                         RandoCocoonsBtn.SetSelection(true);
                         RandoSoulTotemsBtn.SetSelection(true);
-                        RandoPalaceTotemsBtn.SetSelection(true);
-                        //RandoLoreTabletsBtn.SetSelection(false);
+                        RandoPalaceBtn.SetSelection(true);
+                        RandoLoreTabletsBtn.SetSelection(true);
                         RandoFlamesBtn.SetSelection(true);
                         RandoBossEssenceBtn.SetSelection(true);
+                        RandoBossGeoBtn.SetSelection(true);
                         break;
                     case "Vanilla":
                         RandoDreamersBtn.SetSelection(false);
@@ -400,10 +414,11 @@ namespace RandomizerMod
                         RandoGeoRocksBtn.SetSelection(false);
                         RandoCocoonsBtn.SetSelection(false);
                         RandoSoulTotemsBtn.SetSelection(false);
-                        RandoPalaceTotemsBtn.SetSelection(false);
-                        //RandoLoreTabletsBtn.SetSelection(false);
+                        RandoPalaceBtn.SetSelection(false);
+                        RandoLoreTabletsBtn.SetSelection(false);
                         RandoFlamesBtn.SetSelection(false);
                         RandoBossEssenceBtn.SetSelection(false);
+                        RandoBossGeoBtn.SetSelection(false);
                         break;
                     case "Custom":
                         item.SetSelection("Standard");
@@ -470,17 +485,6 @@ namespace RandomizerMod
                     RandoCharmsBtn.Lock();
                     RandoKeysBtn.Lock();
                 }
-                else if (DuplicateBtn.CurrentSelection)
-                {
-                    RandoDreamersBtn.SetSelection(true);
-                    RandoSkillsBtn.SetSelection(true);
-                    RandoCharmsBtn.SetSelection(true);
-                    RandoKeysBtn.SetSelection(true);
-                    RandoDreamersBtn.Lock();
-                    RandoSkillsBtn.Lock();
-                    RandoCharmsBtn.Lock();
-                    RandoKeysBtn.Lock();
-                }
                 else
                 {
                     RandoDreamersBtn.Unlock();
@@ -513,11 +517,19 @@ namespace RandomizerMod
                 presetPoolsBtn.SetSelection("Custom");
             }
 
+            void RecentItemsSettingChanged(RandoMenuItem<bool> item)
+            {
+                RandomizerMod.Instance.globalSettings.RecentItems = recentItemsBtn.CurrentSelection;
+            }
             void NPCSettingChanged(RandoMenuItem<bool> item)
             {
                 RandomizerMod.Instance.globalSettings.NPCItemDialogue = npcBtn.CurrentSelection;
             }
 
+            void PreloadsSettingChanged(RandoMenuItem<bool> item)
+            {
+                RandomizerMod.Instance.globalSettings.ReducePreloads = preloadsBtn.CurrentSelection;
+            }
             modeBtn.Changed += s => HandleProgressionLock();
 
             presetSkipsBtn.Changed += UpdateSkipsButtons;
@@ -539,7 +551,10 @@ namespace RandomizerMod
             RandoGeoChestsBtn.Changed += PoolSettingChanged;
             RandoGeoRocksBtn.Changed += PoolSettingChanged;
             RandoSoulTotemsBtn.Changed += PoolSettingChanged;
-            RandoPalaceTotemsBtn.Changed += PoolSettingChanged;
+
+            RandoPalaceBtn.Changed += PoolSettingChanged;
+            RandoLoreTabletsBtn.Changed += PoolSettingChanged;
+
             RandoMaskBtn.Changed += PoolSettingChanged;
             RandoVesselBtn.Changed += PoolSettingChanged;
             RandoOreBtn.Changed += PoolSettingChanged;
@@ -559,8 +574,9 @@ namespace RandomizerMod
             RandoStartLocationsModeBtn.Changed += (RandoMenuItem<string> Item) => UpdateStartLocationColor();
             StartLocationsListBtn.Changed += (RandoMenuItem<string> Item) => UpdateStartLocationColor();
             modeBtn.Changed += (RandoMenuItem<string> Item) => UpdateStartLocationColor();
-
+            recentItemsBtn.Changed += RecentItemsSettingChanged;
             npcBtn.Changed += NPCSettingChanged;
+            preloadsBtn.Changed += PreloadsSettingChanged;
 
             // Setup game type button changes
             void SaveShadeVal(RandoMenuItem<bool> item)
@@ -606,7 +622,8 @@ namespace RandomizerMod
             void StartGame(bool rando)
             {
                 RandomizerMod.Instance.Settings.CharmNotch = charmNotchBtn.CurrentSelection;
-                RandomizerMod.Instance.Settings.Grubfather = grubfatherBtn.CurrentSelection;
+                RandomizerMod.Instance.Settings.Grubfather = true;
+                RandomizerMod.Instance.Settings.JinnSellAll = true;
                 RandomizerMod.Instance.Settings.EarlyGeo = EarlyGeoBtn.CurrentSelection;
 
 
@@ -636,14 +653,24 @@ namespace RandomizerMod
                     RandomizerMod.Instance.Settings.RandomizeWhisperingRoots = RandoRootsBtn.CurrentSelection;
                     RandomizerMod.Instance.Settings.RandomizeRocks = RandoGeoRocksBtn.CurrentSelection;
                     RandomizerMod.Instance.Settings.RandomizeSoulTotems = RandoSoulTotemsBtn.CurrentSelection;
-                    RandomizerMod.Instance.Settings.RandomizePalaceTotems = RandoPalaceTotemsBtn.CurrentSelection;
+                    RandomizerMod.Instance.Settings.RandomizeLoreTablets = RandoLoreTabletsBtn.CurrentSelection;                    
                     RandomizerMod.Instance.Settings.RandomizeGrimmkinFlames = RandoFlamesBtn.CurrentSelection;
                     RandomizerMod.Instance.Settings.RandomizeBossEssence = RandoBossEssenceBtn.CurrentSelection;
-                    RandomizerMod.Instance.Settings.DuplicateMajorItems = DuplicateBtn.CurrentSelection;
+                    RandomizerMod.Instance.Settings.RandomizeBossGeo = RandoBossGeoBtn.CurrentSelection;
 
+                    RandomizerMod.Instance.Settings.RandomizePalaceTotems = RandoPalaceBtn.CurrentSelection && 
+                        (RandoSoulTotemsBtn.CurrentSelection || !RandoLoreTabletsBtn.CurrentSelection);
+                    RandomizerMod.Instance.Settings.RandomizePalaceTablets = RandoPalaceBtn.CurrentSelection &&
+                        (!RandoSoulTotemsBtn.CurrentSelection || RandoLoreTabletsBtn.CurrentSelection);
+
+                    RandomizerMod.Instance.Settings.DuplicateMajorItems = DuplicateBtn.CurrentSelection;
                     RandomizerMod.Instance.Settings.CreateSpoilerLog = RandoSpoilerBtn.CurrentSelection;
 
                     RandomizerMod.Instance.Settings.Cursed = cursedBtn.CurrentSelection.StartsWith("O");
+                    RandomizerMod.Instance.Settings.RandomizeFocus = cursedBtn.CurrentSelection.StartsWith("O") || cursedBtn.CurrentSelection.StartsWith("J");
+                    RandomizerMod.Instance.Settings.RandomizeCloakPieces = splitCloakBtn.CurrentSelection;
+                    RandomizerMod.Instance.Settings.RandomizeClawPieces = splitClawBtn.CurrentSelection;
+                    RandomizerMod.Instance.Settings.CursedNail = cursedNailBtn.CurrentSelection;
 
                     RandomizerMod.Instance.Settings.Randomizer = rando;
                     RandomizerMod.Instance.Settings.RandomizeAreas = modeBtn.CurrentSelection.EndsWith("Area Randomizer");

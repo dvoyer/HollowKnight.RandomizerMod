@@ -1,7 +1,9 @@
 # Randomizer 3
 
 Randomizer 3 expands on previous versions of the Hollow Knight randomizer by allowing you to randomize more items than ever before and, for the first time, to randomize area or room transitions.
-- Randomizer 3 requires SereCore.dll and Modding API version 53 or greater to run. These are both automatically downloaded by the ModInstaller.
+
+- Randomizer 3 requires SereCore.dll and Modding Api version 53 or greater to run. These are both automatically downloaded by the ModInstaller.
+
 - There is a new map tracker for area and room randomizer available at https://github.com/homothetyhk/RandomizerTracker/releases
 - There is a community randomizer guide published here: https://tinyurl.com/HollowKnightRandomizerGuide
 
@@ -15,13 +17,18 @@ With skips allowed, the player is advised to take care to not get locked out of 
 - No more than 1 nail upgrade before claw or wings
 - No more than 3 nail upgrades before claw
 
+In Split Claw mode, obtain:
+- No more than 2 nail upgrades with only a single claw piece
+- Any number of nail upgrades with a single claw piece as well as wings
+
 ## Quality of Life
 
-- Salubra Notches: automatically gives you each Salubra charm notch upon acquiring the required number of charms
-- Fast Grubfather: all unlocked grub geo rewards are given at once by Grubfather
+- Salubra Notches: automatically gives you each Salubra charm notch upon acquiring the required number of charms.
+- Reduce Preloads: Only preload a single geo rock type; randomized geo rocks will all look like KP rocks instead of the correct original rock type. The game must be restarted for changes to this setting to take effect.
 - Early Geo: start the game with between 300 and 600 geo.
 - Extra Platforms: platforms in various places that prevent softlocks. For example, there are several platforms added to Ancient Basin to prevent having to quit-out after checking certain locations without vertical movement.
-- 1.2.2.1 Levers: Restores the larger hitboxes of levers from past patches, allowing them to sometimes be hit from the other side. Note that not all levers were fixable. Lever skips are never required in logic.
+- Recent Items: Display the last 5 randomized items collected
+- NPC Item Dialogue: certain checks (Cornifer maps, Nailmasters' nail arts, Nailmaster's Glory, Vengeful Spirit, Shade Soul, Descending Dark) will be given by the relevant NPCs instead of a shiny item on the ground.
 - Jiji Hints: trade a rancid egg for information on which areas contain which items. Hints are given for progression items, in the order that they were intended to be collected. Already obtained items are skipped.
 
 ## Randomization
@@ -43,25 +50,27 @@ These settings control which items are randomized.
 - Whispering Roots
 - Grubs
 - Lifeblood Cocoons
-- Soul Totems: all soul totems except those found in White Palace
-- Palace Totems: soul totems found in White Palace
+- Soul Totems
+- Lore Tablets 
 - Grimmkin Flames
 - Geo Rocks
 - Boss Essence: essence drops from Dream Warriors and Dream Bosses
+- Boss Geo: geo drops from Gruz Mother, Massive Moss Charger, Vengefly King, Gorgeous Husk, Crystal/Enraged Guardian and both Soul Warriors
+- Palace Totems/Tablets: Disable this to remove the totems and tablets in White Palace from the randomization pool
 
 Note: several items are randomized progressively, meaning that collecting any item in a given family always gives the first upgrade, collecting another gives the second upgrade, etc. The families this pertains to are:
-	- Dream Nail, Dream Gate, Awoken Dream Nail
-	- Mothwing Cloak, Shade Cloak
-	- Vengeful Spirit, Shade Soul
-	- Desolate Dive, Descending Dark
-	- Howling Wraiths, Abyss Shriek
+- Dream Nail, Dream Gate, Awoken Dream Nail
+- Mothwing Cloak, Shade Cloak
+- Vengeful Spirit, Shade Soul
+- Desolate Dive, Descending Dark
+- Howling Wraiths, Abyss Shriek
 Any of the above pickups may be forced by randomizer logic.
 
 Note: the following items can be used to kill baldurs:
-	- All difficulties: Vengeful Spirit (or upgrades), Desolate Dive (or upgrades), Grubberfly's Elegy, Glowing Womb, Dash Slash with Dash
-	- With Mild skips: Weaversong, Spore Shroom
-	- With Spicy skips: Cyclone Slash, Mark of Pride
-	- Not in logic, but feel free to try if you have time on your hands: Longnail, Mothwing Cloak, Sprintmaster+Dashmaster
+- All difficulties: Vengeful Spirit (or upgrades), Desolate Dive (or upgrades), Grubberfly's Elegy, Glowing Womb, Dash Slash with Dash
+- With Mild skips: Weaversong, Spore Shroom
+- With Spicy skips: Cyclone Slash, Mark of Pride
+- Not in logic, but feel free to try if you have time on your hands: Longnail, Mothwing Cloak, Sprintmaster+Dashmaster
 Baldur hp is reduced to 5 to make slower baldur kills less tedious, and to reduce rng.
 
 Note: the lifeblood door in Abyss opens if you enter the room with a single lifeblood mask. In logic, it requires a lifeblood charm.
@@ -92,6 +101,20 @@ The "cursed" option is a special hard mode for randomizer veterans. Features inc
 - Shade Soul, Descending Dark, and Abyss Shriek are removed.
 - Major items are less likely to be placed as early progression items.
 - Focus (the ability to heal) is randomized, and is no longer available from the start of the game.
+
+Activating the "split claw" option replaces Mantis Claw with two items, a "Left Mantis Claw" that works only on left walls, and a "Right Mantis Claw" that works only on the right.
+- There are now two checks in Mantis Village to replace the one Mantis Claw check.
+- Neither claw piece is duped when "duplicate major items" is activated.
+- With Randomized Start items, it is impossible to start with exactly one claw piece.
+- With this setting activated but skills unrandomized, the Mantis Claw pickup will still be replaced with the two claw pickups, which will not be added to the randomization algorithm.
+
+Activating the "split cloak" option replaces Mothwing Cloak with two items, a "Left Mothwing Cloak" that lets you dash to the left, and a "Right Mothwing Cloak" that dashes to the right.
+- There is now an additional check dropped by Hornet (in Greenpath).
+- Shade Cloak is *not* split (so if you can shadowdash to the left and dash to the right, you can also shadowdash to the right)
+- The cloak pieces *are* duped with "duplicate major items" activated.
+- This setting is unavailable with skills unrandomized.
+
+Activating the "cursed nail" option adds three extra items to the pool, that let you swing your nail left, right and up; by default in this mode, the nail can only be swung down.
 
 ## Area/Room randomizer
 

@@ -78,7 +78,7 @@ namespace RandomizerMod
 
         private static string NameOfItemPlacedAt(string location)
         {
-            var item = LogicManager.GetItemDef(RandomizerMod.Instance.Settings.GetItemPlacedAt(location));
+            ReqDef item = LogicManager.GetItemDef(RandomizerMod.Instance.Settings.GetItemPlacedAt(location));
             return GetLanguageString(item.nameKey, "UI");
         }
 
@@ -113,6 +113,10 @@ namespace RandomizerMod
             if (key.StartsWith("RANDOMIZER_NAME_GRUB"))
             {
                 return $"{LanguageStrings["UI"][key]}! ({PlayerData.instance.grubsCollected + 1}/46)";
+            }
+            if (key.StartsWith("RANDOMIZER_NAME_GRIMMKIN_FLAME"))
+            {
+                return $"Grimmkin Flame ({RandomizerMod.Instance.Settings.TotalFlamesCollected + 1}/10)";
             }
 
             if (key == "BRUMM_DEEPNEST_3" && sheetTitle == "CP2" && RandomizerMod.Instance.Settings.RandomizeGrimmkinFlames)
@@ -173,6 +177,132 @@ namespace RandomizerMod
                 }
             }
 
+            if (RandomizerMod.Instance.Settings.RandomizeVesselFragments && sheetTitle == "Prompts" && key == "GEO_RELIEVE")
+            {
+                return Language.Language.GetInternal(key, sheetTitle).Replace("?", $" for a {NameOfItemPlacedAt("Vessel_Fragment-Basin")}?");
+            }
+
+            // Used to show which mantis claw piece we have in inventory. Changed the Mantis Claw shop name/description to
+            // use a different entry, for the unlikely event that Mantis Claw and claw pieces can appear in the same seed in the future.
+            // Bypass this check if they have claw (so show the usual text)
+
+            // We don't need to check whether the player has Claw Pieces randomized; we only change the output if they have
+            // exactly one claw piece
+            if (!PlayerData.instance.GetBool("hasWalljump"))
+            {
+                if (key == "INV_NAME_WALLJUMP" && sheetTitle == "UI")
+                {
+                    if (RandomizerMod.Instance.Settings.GetBool(name: "hasWalljumpLeft")
+                        && !RandomizerMod.Instance.Settings.GetBool(name: "hasWalljumpRight"))
+                    {
+                        return "Left Mantis Claw";
+                    }
+                    else if (!RandomizerMod.Instance.Settings.GetBool(name: "hasWalljumpLeft")
+                        && RandomizerMod.Instance.Settings.GetBool(name: "hasWalljumpRight"))
+                    {
+                        return "Right Mantis Claw";
+                    }
+                }
+                else if (key == "INV_DESC_WALLJUMP" && sheetTitle == "UI")
+                {
+                    if (RandomizerMod.Instance.Settings.GetBool(name: "hasWalljumpLeft")
+                        && !RandomizerMod.Instance.Settings.GetBool(name: "hasWalljumpRight"))
+                    {
+                        return "Part of a claw carved from bone. Allows the wearer to cling to walls on the left and leap off of them.";
+                    }
+                    else if (!RandomizerMod.Instance.Settings.GetBool(name: "hasWalljumpLeft")
+                        && RandomizerMod.Instance.Settings.GetBool(name: "hasWalljumpRight"))
+                    {
+                        return "Part of a claw carved from bone. Allows the wearer to cling to walls on the right and leap off of them.";
+                    }
+                }
+            }
+
+            // Same, for cloak
+            if (!PlayerData.instance.GetBool("hasDash"))
+            {
+                if (key == "INV_NAME_DASH" && sheetTitle == "UI")
+                {
+                    if (RandomizerMod.Instance.Settings.GetBool(name: "canDashLeft")
+                        && !RandomizerMod.Instance.Settings.GetBool(name: "canDashRight"))
+                    {
+                        return "Left Mothwing Cloak";
+                    }
+                    else if (!RandomizerMod.Instance.Settings.GetBool(name: "canDashLeft")
+                        && RandomizerMod.Instance.Settings.GetBool(name: "canDashRight"))
+                    {
+                        return "Right Mothwing Cloak";
+                    }
+                }
+                else if (key == "INV_DESC_DASH" && sheetTitle == "UI")
+                {
+                    if (RandomizerMod.Instance.Settings.GetBool(name: "canDashLeft")
+                        && !RandomizerMod.Instance.Settings.GetBool(name: "canDashRight"))
+                    {
+                        return "Cloak threaded with mothwing strands. Allows the wearer to dash to the left along the ground or through the air.";
+                    }
+                    else if (!RandomizerMod.Instance.Settings.GetBool(name: "canDashLeft")
+                        && RandomizerMod.Instance.Settings.GetBool(name: "canDashRight"))
+                    {
+                        return "Cloak threaded with mothwing strands. Allows the wearer to dash to the right along the ground or through the air.";
+                    }
+                }
+                else if (key == "INV_NAME_SHADOWDASH" && sheetTitle == "UI")
+                {
+                    if (RandomizerMod.Instance.Settings.GetBool(name: "canDashLeft")
+                        && !RandomizerMod.Instance.Settings.GetBool(name: "canDashRight"))
+                    {
+                        return "Left Shade Cloak";
+                    }
+                    else if (!RandomizerMod.Instance.Settings.GetBool(name: "canDashLeft")
+                        && RandomizerMod.Instance.Settings.GetBool(name: "canDashRight"))
+                    {
+                        return "Right Shade Cloak";
+                    }
+                }
+                else if (key == "INV_DESC_SHADOWDASH" && sheetTitle == "UI")
+                {
+                    if (RandomizerMod.Instance.Settings.GetBool(name: "canDashLeft")
+                        && !RandomizerMod.Instance.Settings.GetBool(name: "canDashRight"))
+                    {
+                        return "Cloak formed from the substance of the Abyss. Allows the wearer to dash to the left through enemies and their attacks without taking damage.";
+                    }
+                    else if (!RandomizerMod.Instance.Settings.GetBool(name: "canDashLeft")
+                        && RandomizerMod.Instance.Settings.GetBool(name: "canDashRight"))
+                    {
+                        return "Cloak formed from the substance of the Abyss. Allows the wearer to dash to the right through enemies and their attacks without taking damage.";
+                    }
+                }
+            }
+
+            // Add in some text to show which nail directions the player has
+            if (key.StartsWith("INV_DESC_NAIL") && sheetTitle.StartsWith("UI"))
+            {
+                string nailblockstring = string.Empty;
+                if (RandomizerMod.Instance.Settings.CursedNail)
+                {
+                    nailblockstring = "<br><br>Can be swung down";
+                    if (RandomizerMod.Instance.Settings.GetBool(name: "canUpslash")) nailblockstring += ", up";
+                    if (RandomizerMod.Instance.Settings.GetBool(name: "canSideslashLeft")) nailblockstring += ", left";
+                    if (RandomizerMod.Instance.Settings.GetBool(name: "canSideslashRight")) nailblockstring += ", right";
+                    nailblockstring += ".";
+                }
+                return Language.Language.GetInternal(key, sheetTitle) + nailblockstring;
+            }
+
+
+            if (key == "ELDERBUG_FLOWER" && sheetTitle == "Prompts")
+            {
+                switch (GameManager.instance.sceneName)
+                {
+                    // Having a switch/case because I like leaving the possibility open for adding more funny text but am too lazy to it right now
+                    case SceneNames.Town:
+                        return "Give Elderbug-chan the flower?";
+                    default:
+                        break;
+                }    
+            }
+
             if ((key == "JIJI_DOOR_NOKEY" || key == "BATH_HOUSE_NOKEY") && (sheetTitle == "Prompts") 
                 && !PlayerData.instance.openedWaterwaysManhole & PlayerData.instance.simpleKeys > 0 && PlayerData.instance.simpleKeys < 2)
             {
@@ -183,10 +313,22 @@ namespace RandomizerMod
 
             if (key == "INV_DESC_SPELL_FOCUS" && sheetTitle == "UI")
             {
+                string focus = RandomizerMod.Instance.Settings.RandomizeFocus
+                    ? "\n" + (RandomizerMod.Instance.Settings.GetBool(name: "canFocus") ? "You can focus." : "You cannot focus.")
+                    : string.Empty;
+                string essence = Ref.PD.GetInt(nameof(Ref.PD.dreamOrbs)) > 0 && !Ref.PD.GetBool(nameof(Ref.PD.hasDreamNail))
+                    ? $"\nYou have {Ref.PD.GetInt(nameof(Ref.PD.dreamOrbs))} Essence."
+                    : string.Empty;
+                string flames = (!RandomizerMod.Instance.Settings.RandomizeGrimmkinFlames || Ref.PD.grimmChildLevel > 3)
+                    // GC level 4 : NKG defeated; GC level 5 : Banishment. In either case collected flames are irrelevant.
+                    // Otherwise, this information may be useful.
+                    ? string.Empty
+                    : $"\nYou have {Ref.PD.flamesCollected} unspent Flames.";
                 return 
-                    $"You've rescued {PlayerData.instance.grubsCollected} grub(s) so far!" +
-                    $"\nYou've found {PlayerData.instance.guardiansDefeated} dreamer(s), including\n" +
-                    (PlayerData.instance.lurienDefeated ? "Lurien, " : string.Empty) + (PlayerData.instance.monomonDefeated ? "Monomon, " : string.Empty) + (PlayerData.instance.hegemolDefeated ? "Herrah" : string.Empty) + "\n"
+                    $"You've rescued {PlayerData.instance.grubsCollected} grub(s) so far!"
+                    + $"\nYou've found {PlayerData.instance.guardiansDefeated} dreamer(s), including\n"
+                    + (PlayerData.instance.lurienDefeated ? "Lurien, " : string.Empty) + (PlayerData.instance.monomonDefeated ? "Monomon, " : string.Empty) + (PlayerData.instance.hegemolDefeated ? "Herrah" : string.Empty)
+                    + "\n" + focus + essence + flames
                     ;
             }
 
@@ -306,6 +448,9 @@ namespace RandomizerMod
             { "Dreamer", "A dreamer" },
             { "Charm", "A charm" },
             { "Skill", "A new ability" },
+            { "SplitClaw", "A new ability" },
+            { "SplitCloak", "A new ability" },
+            { "CursedNail", "A new ability" },
             { "Key", "A useful item" },
             { "Root", "A hoard of essence" },
             { "Grub", "A helpless grub" },
